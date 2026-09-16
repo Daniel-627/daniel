@@ -10,6 +10,7 @@ type Project = {
   title: string;
   filterTags?: string[];
   thumbnail?: unknown;
+  thumbAspect?: number;
 };
 
 const FILTERS = ["All", "Web Design", "Development", "Webflow", "Branding"];
@@ -47,7 +48,10 @@ export default function ProjectMasonry({ projects }: { projects: Project[] }) {
             href={`/projects/${p.slug}`}
             className="mb-4 block break-inside-avoid transition-opacity hover:opacity-85"
           >
-            <div className="relative flex min-h-[220px] items-end overflow-hidden rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] p-4">
+            <div
+              className="relative flex items-end overflow-hidden rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] p-4"
+              style={{ aspectRatio: p.thumbAspect ? p.thumbAspect : "4 / 5" }}
+            >
               {p.thumbnail ? (
                 <Image
                   src={urlFor(p.thumbnail).width(800).url()}

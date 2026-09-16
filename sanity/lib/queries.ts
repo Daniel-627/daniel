@@ -5,7 +5,8 @@ export const FEATURED_PROJECTS_QUERY = /* groq */ `
   category,
   filterTags,
   year,
-  thumbnail
+  thumbnail,
+  "thumbAspect": thumbnail.asset->metadata.dimensions.aspectRatio
 }
 `;
 
@@ -16,7 +17,8 @@ export const ALL_PROJECTS_QUERY = /* groq */ `
   category,
   filterTags,
   year,
-  thumbnail
+  thumbnail,
+  "thumbAspect": thumbnail.asset->metadata.dimensions.aspectRatio
 }
 `;
 
