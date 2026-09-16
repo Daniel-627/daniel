@@ -66,6 +66,7 @@ export const SERVICES_QUERY = /* groq */ `
 export const PROCESS_STEPS_QUERY = /* groq */ `
 *[_type == "processStep"] | order(order asc) {
   "num": number,
-  label
+  label,
+  description
 }
 `;

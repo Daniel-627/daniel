@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CtaButton from "@/components/CtaButton";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
+import ProcessAccordion from "@/components/ProcessAccordion";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import {
@@ -56,7 +57,7 @@ export default async function Home() {
         <div className="grid gap-10 md:grid-cols-3 md:gap-8">
           {services.map((s: { num: string; title: string; body: string }) => (
             <div key={s.num} className="border-t border-border pt-5">
-              <span className="mb-14 block font-display text-[15px] text-text-secondary">
+              <span className="mb-14 block font-display text-[56px] text-text-secondary">
                 {s.num}
               </span>
               <h3 className="mb-2.5 font-display text-xl font-medium">
@@ -145,22 +146,7 @@ export default async function Home() {
             </p>
           </div>
           <div>
-            {processSteps.map((s: { num: string; label: string }) => (
-              <div
-                key={s.num}
-                className="group flex cursor-pointer items-center justify-between border-t border-border py-5 text-lg last:border-b"
-              >
-                <div className="flex items-center gap-5">
-                  <span className="font-display text-sm text-text-secondary">
-                    {s.num}
-                  </span>
-                  {s.label}
-                </div>
-                <span className="text-xl text-text-secondary transition-transform group-hover:rotate-45 group-hover:text-accent-blue">
-                  +
-                </span>
-              </div>
-            ))}
+            <ProcessAccordion steps={processSteps} />
           </div>
         </div>
       </section>

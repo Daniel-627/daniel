@@ -19,6 +19,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "description",
+      title: "Description",
+      description: "Shown when this step is expanded.",
+      type: "text",
+    }),
+    defineField({
       name: "order",
       title: "Order",
       type: "number",
