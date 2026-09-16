@@ -12,11 +12,13 @@ export default function ProcessAccordion({ steps }: { steps: Step[] }) {
       {steps.map((s, i) => {
         const isOpen = openIndex === i;
         return (
-          <div key={s.num} className="border-t border-border last:border-b">
-            <button
-              onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="flex w-full items-center justify-between py-5 text-left text-lg"
-            >
+          <div
+            key={s.num}
+            onMouseEnter={() => setOpenIndex(i)}
+            onMouseLeave={() => setOpenIndex(null)}
+            className="border-t border-border last:border-b"
+          >
+            <div className="flex w-full items-center justify-between py-5 text-left text-lg">
               <div className="flex items-center gap-5">
                 <span className="font-display text-sm text-text-secondary">
                   {s.num}
@@ -30,7 +32,7 @@ export default function ProcessAccordion({ steps }: { steps: Step[] }) {
               >
                 +
               </span>
-            </button>
+            </div>
             {isOpen && s.description && (
               <div className="mb-5 rounded-xl bg-bg-raised p-5 text-[14.5px] leading-relaxed text-text-secondary">
                 {s.description}
