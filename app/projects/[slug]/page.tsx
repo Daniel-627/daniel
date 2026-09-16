@@ -1,9 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getProject, projects } from "@/lib/projects";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { PROJECT_BY_SLUG_QUERY, ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const projects = await client.fetch(ALL_PROJECTS_QUERY);
+  return projects.map((p: { slug: string }) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -12,11 +18,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
   return { title: project ? `${project.title} — daniel.co.ke` : "Project" };
 }
 
-const galleryClass = (layout?: "wide" | "tall") => {
+const galleryClass = (layout?: string) => {
   if (layout === "wide") return "col-span-2";
   if (layout === "tall") return "row-span-2";
   return "";
@@ -28,10 +34,9 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
   if (!project) notFound();
 
-  const nextProject = getProject(project.nextSlug);
   const isDesign = project.category === "design";
 
   return (
@@ -51,7 +56,7 @@ export default async function ProjectDetailPage({
         </h1>
 
         <div className="mt-11 flex flex-wrap gap-12 border-t border-border pt-6">
-          {project.metaFields.map((m) => (
+          {project.metaFields?.map((m: { label: string; value: string; href?: string }) => (
             <div key={m.label}>
               <div className="mb-1.5 text-[13px] text-text-secondary">
                 {m.label}
@@ -76,8 +81,15 @@ export default async function ProjectDetailPage({
       </header>
 
       <div className="mx-auto max-w-6xl px-8">
-        <div className="my-14 flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-gradient-to-br from-[#232427] to-[#17181a] text-sm text-text-secondary">
-          Hero image
+        <div className="relative my-14 aspect-video w-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#232427] to-[#17181a]">
+          {project.heroImage ? (
+            <Image
+              src={urlFor(project.heroImage).width(1600).url()}
+              alt={project.title}
+              fill
+              className="object-cover"
+            />
+          ) : null}
         </div>
       </div>
 
@@ -85,17 +97,18 @@ export default async function ProjectDetailPage({
         <h2 className="font-display text-[26px] font-medium tracking-tight md:text-[34px]">
           Overview
         </h2>
-        <div className="space-y-[18px]">
-          {project.overview.map((p, i) => (
-            <p key={i} className="text-[16.5px] leading-relaxed text-[#c7c7c7]">
-              {p}
-            </p>
-          ))}
+        <div className="space-y-[18px] text-[16.5px] leading-relaxed text-[#c7c7c7]">
+          {Array.isArray(project.overview) &&
+            project.overview.map((block: { _key: string; children?: { text: string }[] }) => (
+              <p key={block._key}>
+                {block.children?.map((c) => c.text).join("")}
+              </p>
+            ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl border-t border-border px-8 py-[60px]">
-        {project.didList.map((d) => (
+        {project.didList?.map((d: { task: string; tag: string }) => (
           <div
             key={d.task}
             className="flex items-center justify-between border-t border-border py-[22px] text-base last:border-b"
@@ -106,35 +119,46 @@ export default async function ProjectDetailPage({
         ))}
       </section>
 
-      <section className="mx-auto max-w-6xl border-t border-border px-8 py-[60px]">
-        <div
-          className={`grid gap-4 ${
-            isDesign ? "grid-cols-3 auto-rows-[200px]" : "grid-cols-2"
-          }`}
-        >
-          {project.gallery.map((g, i) => (
-            <div
-              key={i}
-              className={`flex items-center justify-center rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] text-[13px] text-text-secondary ${
-                isDesign ? galleryClass(g.layout) : "aspect-[4/3]"
-              }`}
-            >
-              {g.label}
-            </div>
-          ))}
-        </div>
-      </section>
+      {project.gallery?.length ? (
+        <section className="mx-auto max-w-6xl border-t border-border px-8 py-[60px]">
+          <div
+            className={`grid gap-4 ${
+              isDesign ? "grid-cols-3 auto-rows-[200px]" : "grid-cols-2 auto-rows-[280px]"
+            }`}
+          >
+            {project.gallery.map(
+              (g: { _key: string; image?: unknown; layout?: string }) => (
+                <div
+                  key={g._key}
+                  className={`relative overflow-hidden rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] ${
+                    isDesign ? galleryClass(g.layout) : ""
+                  }`}
+                >
+                  {g.image ? (
+                    <Image
+                      src={urlFor(g.image).width(1000).url()}
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
+              )
+            )}
+          </div>
+        </section>
+      ) : null}
 
-      {nextProject && (
+      {project.nextProject && (
         <Link
-          href={`/projects/${nextProject.slug}`}
+          href={`/projects/${project.nextProject.slug}`}
           className="block border-t border-border py-20 text-center"
         >
           <div className="mb-4 text-sm text-text-secondary">
             Next project
           </div>
           <h2 className="font-display text-4xl font-semibold tracking-tight transition-colors hover:text-accent-blue md:text-6xl">
-            {nextProject.title} →
+            {project.nextProject.title} →
           </h2>
         </Link>
       )}

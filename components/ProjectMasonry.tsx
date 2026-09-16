@@ -2,24 +2,24 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { Project } from "@/lib/projects";
+import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
+
+type Project = {
+  slug: string;
+  title: string;
+  filterTags?: string[];
+  thumbnail?: unknown;
+};
 
 const FILTERS = ["All", "Web Design", "Development", "Webflow", "Branding"];
-
-const heightMap: Record<Project["thumbHeight"], string> = {
-  h1: "h-[180px]",
-  h2: "h-[260px]",
-  h3: "h-[340px]",
-  h4: "h-[220px]",
-  h5: "h-[300px]",
-};
 
 export default function ProjectMasonry({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState("All");
 
   const filtered = useMemo(() => {
     if (active === "All") return projects;
-    return projects.filter((p) => p.filterTags.includes(active));
+    return projects.filter((p) => p.filterTags?.includes(active));
   }, [projects, active]);
 
   return (
@@ -47,10 +47,17 @@ export default function ProjectMasonry({ projects }: { projects: Project[] }) {
             href={`/projects/${p.slug}`}
             className="mb-4 block break-inside-avoid transition-opacity hover:opacity-85"
           >
-            <div
-              className={`relative flex items-end overflow-hidden rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] p-4 ${heightMap[p.thumbHeight]}`}
-            >
-              <h3 className="rounded-full bg-black/50 px-3 py-1 font-display text-[15px] font-medium tracking-tight text-text-primary">
+            <div className="relative flex min-h-[220px] items-end overflow-hidden rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] p-4">
+              {p.thumbnail ? (
+                <Image
+                  src={urlFor(p.thumbnail).width(800).url()}
+                  alt={p.title}
+                  fill
+                  sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+                  className="object-cover"
+                />
+              ) : null}
+              <h3 className="relative z-10 rounded-full bg-black/50 px-3 py-1 font-display text-[15px] font-medium tracking-tight text-text-primary">
                 {p.title}
               </h3>
             </div>

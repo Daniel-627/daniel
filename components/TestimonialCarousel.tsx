@@ -1,32 +1,24 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
-const testimonials = [
-  {
-    quote:
-      "Daniel took a vague idea and shipped something that actually worked — on time, no surprises.",
-    name: "Client Name",
-    role: "Founder, Company",
-  },
-  {
-    quote:
-      "Communication was clear the whole way through. I always knew exactly where the build stood.",
-    name: "Client Name",
-    role: "Founder, Company",
-  },
-  {
-    quote:
-      "Handed off a messy brief and got back exactly what the business needed.",
-    name: "Client Name",
-    role: "Founder, Company",
-  },
-];
+type Testimonial = {
+  quote: string;
+  name: string;
+  role?: string;
+  avatar?: unknown;
+};
 
-export default function TestimonialCarousel() {
+export default function TestimonialCarousel({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
+  const [atEnd, setAtEnd] = useState(testimonials.length <= 1);
 
   const updateEdges = () => {
     const el = trackRef.current;
@@ -42,6 +34,8 @@ export default function TestimonialCarousel() {
     });
   };
 
+  if (!testimonials?.length) return null;
+
   return (
     <div>
       <div className="mb-10 flex items-end justify-between">
@@ -51,7 +45,7 @@ export default function TestimonialCarousel() {
             onClick={() => scrollBy(-1)}
             disabled={atStart}
             aria-label="Previous testimonial"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30 disabled:hover:border-border disabled:hover:text-text-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30"
           >
             ←
           </button>
@@ -59,7 +53,7 @@ export default function TestimonialCarousel() {
             onClick={() => scrollBy(1)}
             disabled={atEnd}
             aria-label="Next testimonial"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30 disabled:hover:border-border disabled:hover:text-text-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30"
           >
             →
           </button>
@@ -74,7 +68,17 @@ export default function TestimonialCarousel() {
         {testimonials.map((t, i) => (
           <div key={i} className="w-full shrink-0 snap-start py-10">
             <div className="mb-7 flex items-center gap-3.5">
-              <div className="h-11 w-11 shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222]" />
+              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222]">
+                {t.avatar ? (
+                  <Image
+                    src={urlFor(t.avatar).width(88).height(88).url()}
+                    alt={t.name}
+                    width={44}
+                    height={44}
+                    className="h-full w-full object-cover"
+                  />
+                ) : null}
+              </div>
               <div>
                 <div className="text-[15px] font-medium">{t.name}</div>
                 <div className="text-[13px] text-text-secondary">
