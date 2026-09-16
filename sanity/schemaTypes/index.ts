@@ -5,7 +5,8 @@ import testimonial from "./testimonial";
 import clientLogo from "./clientLogo";
 import service from "./service";
 import processStep from "./processStep";
+import socialLink from "./socialLink";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [project, testimonial, clientLogo, service, processStep],
+  types: [project, testimonial, clientLogo, service, processStep, socialLink],
 };

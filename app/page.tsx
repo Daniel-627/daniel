@@ -11,18 +11,20 @@ import {
   TESTIMONIALS_QUERY,
   CLIENT_LOGOS_QUERY,
   PROCESS_STEPS_QUERY,
+  SOCIAL_LINKS_QUERY,
 } from "@/sanity/lib/queries";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const [featured, services, testimonials, logos, processSteps] =
+  const [featured, services, testimonials, logos, processSteps, socialLinks] =
     await Promise.all([
       client.fetch(FEATURED_PROJECTS_QUERY),
       client.fetch(SERVICES_QUERY),
       client.fetch(TESTIMONIALS_QUERY),
       client.fetch(CLIENT_LOGOS_QUERY),
       client.fetch(PROCESS_STEPS_QUERY),
+      client.fetch(SOCIAL_LINKS_QUERY),
     ]);
 
   return (
@@ -47,6 +49,25 @@ export default async function Home() {
 
         <div className="mt-14 flex flex-wrap items-end justify-between gap-7">
           <CtaButton href="/#contact">Let&apos;s talk</CtaButton>
+          <div className="text-sm">
+            <div className="mb-3 w-40 border-b border-border pb-3 text-text-secondary">
+              Let&apos;s get connected
+            </div>
+            <ul className="mt-3 flex flex-col gap-2">
+              {socialLinks.map((s: { label: string; url: string }) => (
+                <li key={s.label}>
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-text-secondary transition-colors hover:text-text-primary"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </header>
 

@@ -70,3 +70,10 @@ export const PROCESS_STEPS_QUERY = /* groq */ `
   description
 }
 `;
+
+export const SOCIAL_LINKS_QUERY = /* groq */ `
+*[_type == "socialLink"] | order(order asc) {
+  label,
+  url
+}
+`;
