@@ -1,11 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Step = { num: string; label: string; description?: string };
 
 export default function ProcessAccordion({ steps }: { steps: Step[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [supportsHover, setSupportsHover] = useState(true);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setSupportsHover(mql.matches);
+    const listener = (e: MediaQueryListEvent) => setSupportsHover(e.matches);
+    mql.addEventListener("change", listener);
+    return () => mql.removeEventListener("change", listener);
+  }, []);
+
+  const rowProps = (i: number) =>
+    supportsHover
+      ? {
+          onMouseEnter: () => setOpenIndex(i),
+          onMouseLeave: () => setOpenIndex(null),
+        }
+      : {
+          onClick: () =>
+            setOpenIndex((current) => (current === i ? null : i)),
+        };
 
   return (
     <div>
@@ -14,9 +34,10 @@ export default function ProcessAccordion({ steps }: { steps: Step[] }) {
         return (
           <div
             key={s.num}
-            onMouseEnter={() => setOpenIndex(i)}
-            onMouseLeave={() => setOpenIndex(null)}
-            className="border-t border-border last:border-b"
+            {...rowProps(i)}
+            className={`border-t border-border last:border-b ${
+              supportsHover ? "" : "cursor-pointer"
+            }`}
           >
             <div className="flex w-full items-center justify-between py-5 text-left text-lg">
               <div className="flex items-center gap-5">

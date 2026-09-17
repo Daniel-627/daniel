@@ -77,3 +77,25 @@ export const SOCIAL_LINKS_QUERY = /* groq */ `
   url
 }
 `;
+
+export const SKILLS_QUERY = /* groq */ `
+*[_type == "skill"] | order(order asc) {
+  label,
+  value
+}
+`;
+
+export const TIMELINE_QUERY = /* groq */ `
+*[_type == "timelineEntry"] | order(order asc) {
+  year,
+  title,
+  body
+}
+`;
+
+export const ABOUT_PAGE_QUERY = /* groq */ `
+*[_type == "aboutPage"][0]{
+  headline,
+  intro
+}
+`;
