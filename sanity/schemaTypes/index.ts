@@ -9,6 +9,8 @@ import socialLink from "./socialLink";
 import skill from "./skill";
 import timelineEntry from "./timelineEntry";
 import aboutPage from "./aboutPage";
+import { i } from "framer-motion/client";
+import contactPage from "./contactPage";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,5 +23,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     skill,
     timelineEntry,
     aboutPage,
+    contactPage,
   ],
 };

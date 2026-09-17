@@ -111,3 +111,13 @@ export const PROCESS_STEPS_DETAILED_QUERY = /* groq */ `
   whatINeed
 }
 `;
+
+export const CONTACT_PAGE_QUERY = /* groq */ `
+*[_type == "contactPage"][0]{
+  headline,
+  email,
+  phone,
+  location,
+  availability
+}
+`;
