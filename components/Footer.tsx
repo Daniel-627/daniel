@@ -11,7 +11,7 @@ export default async function Footer() {
         <div>© {new Date().getFullYear()} Daniel. All rights reserved.</div>
         <div className="flex gap-5">
           {socials.map((s: { label: string; platform: string; url: string }) => (
-            
+            <a
               key={s.label}
               href={s.url}
               target="_blank"

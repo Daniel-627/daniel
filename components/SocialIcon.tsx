@@ -1,43 +1,64 @@
-import { Github, Linkedin, Mail, Link as LinkIcon } from "lucide-react";
+import type { IconType } from "react-icons";
+import { FaLinkedin, FaCodepen } from "react-icons/fa"
+import {
+  SiGithub,
+  SiGitlab,
+  SiStackoverflow,
+  SiDevdotto,
+  SiHashnode,
+  SiBehance,
+  SiDribbble,
+  SiFigma,
+  SiArtstation,
+  SiX,
+  SiInstagram,
+  SiThreads,
+  SiFacebook,
+  SiYoutube,
+  SiTiktok,
+  SiPinterest,
+  SiMedium,
+  SiSubstack,
+  SiDiscord,
+  SiTelegram,
+  SiWhatsapp,
+  SiUpwork,
+  SiFiverr,
+  SiGumroad,
+  SiPatreon,
+  SiBuymeacoffee,
+} from "react-icons/si";
+import { Mail, Link as LinkIcon } from "lucide-react";
 
-// lucide-react has no dedicated X icon; this is a minimal custom X glyph
-function XIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.5-6.9L4.4 22H1.3l8.1-9.3L1 2h7.3l5 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  x: XIcon,
-  instagram: InstagramIcon,
-  email: Mail,
-  other: LinkIcon,
+const iconMap: Record<string, IconType> = {
+  github: SiGithub,
+  gitlab: SiGitlab,
+  codepen: FaCodepen,
+  stackoverflow: SiStackoverflow,
+  devto: SiDevdotto,
+  hashnode: SiHashnode,
+  behance: SiBehance,
+  dribbble: SiDribbble,
+  figma: SiFigma,
+  artstation: SiArtstation,
+  linkedin: FaLinkedin,
+  x: SiX,
+  instagram: SiInstagram,
+  threads: SiThreads,
+  facebook: SiFacebook,
+  youtube: SiYoutube,
+  tiktok: SiTiktok,
+  pinterest: SiPinterest,
+  medium: SiMedium,
+  substack: SiSubstack,
+  discord: SiDiscord,
+  telegram: SiTelegram,
+  whatsapp: SiWhatsapp,
+  upwork: SiUpwork,
+  fiverr: SiFiverr,
+  gumroad: SiGumroad,
+  patreon: SiPatreon,
+  bmc: SiBuymeacoffee,
 };
 
 export default function SocialIcon({
@@ -47,6 +68,10 @@ export default function SocialIcon({
   platform: string;
   size?: number;
 }) {
-  const Icon = iconMap[platform] ?? LinkIcon;
+  if (platform === "email") return <Mail size={size} />;
+  if (platform === "other") return <LinkIcon size={size} />;
+
+  const Icon = iconMap[platform];
+  if (!Icon) return <LinkIcon size={size} />;
   return <Icon size={size} />;
 }
