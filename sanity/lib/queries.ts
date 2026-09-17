@@ -99,3 +99,14 @@ export const ABOUT_PAGE_QUERY = /* groq */ `
   intro
 }
 `;
+
+export const PROCESS_STEPS_DETAILED_QUERY = /* groq */ `
+*[_type == "processStep"] | order(order asc) {
+  "num": number,
+  label,
+  extendedBody,
+  duration,
+  deliverables,
+  whatINeed
+}
+`;

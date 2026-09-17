@@ -168,6 +168,12 @@ export default async function Home() {
           </div>
           <div>
             <ProcessAccordion steps={processSteps} />
+            <Link
+              href="/process"
+              className="mt-8 inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
+            >
+              View full process →
+            </Link>
           </div>
         </div>
       </section>
