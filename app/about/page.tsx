@@ -1,4 +1,6 @@
 import CtaButton from "@/components/CtaButton";
+import FadeIn from "@/components/motion/FadeIn";
+import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import { client } from "@/sanity/lib/client";
 import {
   SKILLS_QUERY,
@@ -21,72 +23,82 @@ export default async function AboutPage() {
 
   return (
     <div>
-      <header className="mx-auto max-w-6xl px-8 pb-24 pt-24 md:pt-[120px]">
-        <h1 className="max-w-[820px] font-display text-[44px] font-semibold leading-[1.05] tracking-tight md:text-[80px]">
-          {about?.headline}
-        </h1>
-        <p className="mt-8 max-w-[640px] text-lg leading-relaxed text-[#c7c7c7]">
-          {about?.intro}
-        </p>
-      </header>
+      <FadeIn>
+        <header className="mx-auto max-w-6xl px-8 pb-24 pt-24 md:pt-[120px]">
+          <h1 className="max-w-[820px] font-display text-[44px] font-semibold leading-[1.05] tracking-tight md:text-[80px]">
+            {about?.headline}
+          </h1>
+          <p className="mt-8 max-w-[640px] text-lg leading-relaxed text-[#c7c7c7]">
+            {about?.intro}
+          </p>
+        </header>
+      </FadeIn>
 
-      <section className="mx-auto max-w-6xl border-t border-border px-8 py-24">
-        <div className="grid gap-14 md:grid-cols-[1fr_2fr]">
-          <h2 className="font-display text-[28px] font-medium leading-tight tracking-tight md:text-[38px]">
-            What I work with
-          </h2>
-          <div>
-            {skills.map((s: { label: string; value: string }) => (
-              <div
-                key={s.label}
-                className="flex items-center justify-between border-t border-border py-5 text-base last:border-b"
+      <FadeIn>
+        <section className="mx-auto max-w-6xl border-t border-border px-8 py-24">
+          <div className="grid gap-14 md:grid-cols-[1fr_2fr]">
+            <h2 className="font-display text-[28px] font-medium leading-tight tracking-tight md:text-[38px]">
+              What I work with
+            </h2>
+            <StaggerGroup>
+              {skills.map((s: { label: string; value: string }) => (
+                <StaggerItem
+                  key={s.label}
+                  className="flex items-center justify-between border-t border-border py-5 text-base last:border-b"
+                >
+                  <span>{s.label}</span>
+                  <span className="text-sm text-text-secondary">
+                    {s.value}
+                  </span>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+          </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section className="mx-auto max-w-6xl border-t border-border px-8 py-24">
+          <div className="mb-14 text-sm text-text-secondary">
+            A rough timeline
+          </div>
+          <StaggerGroup>
+            {timeline.map((t: { year: string; title: string; body: string }) => (
+              <StaggerItem
+                key={t.year}
+                className="grid grid-cols-1 gap-1.5 border-t border-border py-7 last:border-b md:grid-cols-[120px_1fr_1fr] md:items-baseline md:gap-6"
               >
-                <span>{s.label}</span>
-                <span className="text-sm text-text-secondary">
-                  {s.value}
-                </span>
-              </div>
+                <div className="font-display text-[15px] text-text-secondary">
+                  {t.year}
+                </div>
+                <h4 className="font-display text-[19px] font-medium">
+                  {t.title}
+                </h4>
+                <p className="text-[14.5px] text-text-secondary">{t.body}</p>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
-      </section>
+          </StaggerGroup>
+        </section>
+      </FadeIn>
 
-      <section className="mx-auto max-w-6xl border-t border-border px-8 py-24">
-        <div className="mb-14 text-sm text-text-secondary">
-          A rough timeline
-        </div>
-        {timeline.map((t: { year: string; title: string; body: string }) => (
-          <div
-            key={t.year}
-            className="grid grid-cols-1 gap-1.5 border-t border-border py-7 last:border-b md:grid-cols-[120px_1fr_1fr] md:items-baseline md:gap-6"
-          >
-            <div className="font-display text-[15px] text-text-secondary">
-              {t.year}
+      <FadeIn>
+        <section id="contact" className="mx-auto max-w-6xl px-8 pb-16 pt-24">
+          <div className="flex items-start gap-6">
+            <div className="relative mt-2 h-[52px] w-[52px] shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222]">
+              <span className="absolute bottom-0.5 right-0.5 h-3 w-3 rounded-full border-2 border-bg bg-accent-blue" />
             </div>
-            <h4 className="font-display text-[19px] font-medium">
-              {t.title}
-            </h4>
-            <p className="text-[14.5px] text-text-secondary">{t.body}</p>
+            <h2 className="font-display text-[30px] font-medium leading-tight tracking-tight md:text-[56px]">
+              Let&apos;s talk about a project, collaboration, or an idea you may
+              have
+            </h2>
           </div>
-        ))}
-      </section>
-
-      <section id="contact" className="mx-auto max-w-6xl px-8 pb-16 pt-24">
-        <div className="flex items-start gap-6">
-          <div className="relative mt-2 h-[52px] w-[52px] shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222]">
-            <span className="absolute bottom-0.5 right-0.5 h-3 w-3 rounded-full border-2 border-bg bg-accent-blue" />
+          <div className="mt-10 flex justify-end">
+            <CtaButton href="mailto:ochiengdaniel627@gmail.com">
+              Drop me a line
+            </CtaButton>
           </div>
-          <h2 className="font-display text-[30px] font-medium leading-tight tracking-tight md:text-[56px]">
-            Let&apos;s talk about a project, collaboration, or an idea you may
-            have
-          </h2>
-        </div>
-        <div className="mt-10 flex justify-end">
-          <CtaButton href="mailto:ochiengdaniel627@gmail.com">
-            Drop me a line
-          </CtaButton>
-        </div>
-      </section>
+        </section>
+      </FadeIn>
     </div>
   );
 }
