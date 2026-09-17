@@ -3,6 +3,7 @@ import Image from "next/image";
 import CtaButton from "@/components/CtaButton";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ProcessAccordion from "@/components/ProcessAccordion";
+import SocialIcon from "@/components/SocialIcon";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import {
@@ -53,15 +54,16 @@ export default async function Home() {
             <div className="mb-3 w-40 border-b border-border pb-3 text-text-secondary">
               Let&apos;s get connected
             </div>
-            <ul className="mt-3 flex flex-col gap-2">
-              {socialLinks.map((s: { label: string; url: string }) => (
+            <ul className="mt-3 flex flex-col gap-3">
+              {socialLinks.map((s: { label: string; platform: string; url: string }) => (
                 <li key={s.label}>
                   <a
                     href={s.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-text-secondary transition-colors hover:text-text-primary"
+                    className="flex items-center gap-2.5 text-text-secondary transition-colors hover:text-text-primary"
                   >
+                    <SocialIcon platform={s.platform} />
                     {s.label}
                   </a>
                 </li>

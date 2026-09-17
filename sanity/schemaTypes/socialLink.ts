@@ -13,6 +13,24 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "platform",
+      title: "Platform",
+      description: "Controls which icon is shown.",
+      type: "string",
+      options: {
+        list: [
+          { title: "GitHub", value: "github" },
+          { title: "LinkedIn", value: "linkedin" },
+          { title: "X / Twitter", value: "x" },
+          { title: "Instagram", value: "instagram" },
+          { title: "Email", value: "email" },
+          { title: "Other / Generic link", value: "other" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "url",
       title: "URL",
       type: "url",
@@ -25,6 +43,6 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "label", subtitle: "url" },
+    select: { title: "label", subtitle: "platform" },
   },
 });
