@@ -1,6 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
 import ProjectMasonry from "@/components/ProjectMasonry";
+import FadeIn from "@/components/motion/FadeIn";
 
 export const revalidate = 60;
 
@@ -13,14 +14,16 @@ export default async function ProjectsPage() {
 
   return (
     <div>
-      <header className="mx-auto max-w-6xl px-8 pb-20 pt-24 md:pt-[120px]">
-        <div className="mb-5 text-sm text-text-secondary">
-          Projects ({projects.length})
-        </div>
-        <h1 className="max-w-[760px] font-display text-[44px] font-semibold leading-[1.02] tracking-tight md:text-[76px]">
-          Everything I&apos;ve shipped, in one place.
-        </h1>
-      </header>
+      <FadeIn>
+        <header className="mx-auto max-w-6xl px-8 pb-20 pt-24 md:pt-[120px]">
+          <div className="mb-5 text-sm text-text-secondary">
+            Projects ({projects.length})
+          </div>
+          <h1 className="max-w-[760px] font-display text-[44px] font-semibold leading-[1.02] tracking-tight md:text-[76px]">
+            Everything I&apos;ve shipped, in one place.
+          </h1>
+        </header>
+      </FadeIn>
 
       <div className="mx-auto max-w-6xl px-8">
         <ProjectMasonry projects={projects} />
