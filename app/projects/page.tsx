@@ -15,17 +15,17 @@ export default async function ProjectsPage() {
   return (
     <div>
       <FadeIn>
-        <header className="mx-auto max-w-6xl px-8 pb-20 pt-24 md:pt-[120px]">
-          <div className="mb-5 text-sm text-text-secondary">
+        <header className="mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24 md:pt-[120px]">
+          <div className="mb-4 text-sm text-text-secondary sm:mb-5">
             Projects ({projects.length})
           </div>
-          <h1 className="max-w-[760px] font-display text-[44px] font-semibold leading-[1.02] tracking-tight md:text-[76px]">
+          <h1 className="max-w-[760px] font-display text-[32px] font-semibold leading-[1.1] tracking-tight sm:text-[44px] sm:leading-[1.02] md:text-[76px]">
             Everything I&apos;ve shipped, in one place.
           </h1>
         </header>
       </FadeIn>
 
-      <div className="mx-auto max-w-6xl px-8">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <ProjectMasonry projects={projects} />
       </div>
     </div>

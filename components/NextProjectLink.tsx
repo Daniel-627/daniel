@@ -11,11 +11,11 @@ export default function NextProjectLink({
   title: string;
 }) {
   return (
-    <Link href={`/projects/${slug}`} className="block border-t border-border py-20 text-center">
-      <div className="mb-4 text-sm text-text-secondary">Next project</div>
+    <Link href={`/projects/${slug}`} className="block border-t border-border px-5 py-14 text-center sm:px-8 sm:py-20">
+      <div className="mb-3 text-sm text-text-secondary sm:mb-4">Next project</div>
       <motion.h2
         whileHover="hover"
-        className="inline-flex items-center gap-3 font-display text-4xl font-semibold tracking-tight transition-colors hover:text-accent-blue md:text-6xl"
+        className="inline-flex items-center gap-2 font-display text-2xl font-semibold tracking-tight transition-colors hover:text-accent-blue sm:gap-3 sm:text-4xl md:text-6xl"
       >
         {title}
         <motion.span
