@@ -7,7 +7,7 @@ export default async function Footer() {
 
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-8 py-7 text-[13.5px] text-text-secondary">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-5 py-7 text-center text-[13.5px] text-text-secondary sm:flex-row sm:justify-between sm:px-8 sm:text-left">
         <div>© {new Date().getFullYear()} Daniel. All rights reserved.</div>
         <div className="flex gap-5">
           {socials.map((s: { label: string; platform: string; url: string }) => (
