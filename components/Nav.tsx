@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useState } from "react";
 
 const links = [
   { href: "/about", label: "About" },
@@ -8,8 +12,30 @@ const links = [
 ];
 
 export default function Nav() {
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    const diff = latest - previous;
+
+    if (latest < 80) {
+      setHidden(false);
+      return;
+    }
+    if (diff > 4) {
+      setHidden(true);
+    } else if (diff < -4) {
+      setHidden(false);
+    }
+  });
+
   return (
-    <nav className="sticky top-0 z-50 bg-transparent">
+    <motion.nav
+      animate={{ y: hidden ? "-100%" : "0%" }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className="sticky top-0 z-50 bg-transparent"
+    >
       <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-8">
         <Link
           href="/"
@@ -36,6 +62,6 @@ export default function Nav() {
           Available for work
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
