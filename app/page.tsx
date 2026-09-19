@@ -35,7 +35,7 @@ export default async function Home() {
     <div id="top">
       <div className="sticky top-0 z-0">
         <HeroReveal>
-          <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[100px] md:pb-[140px]">
+          <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[120px] md:pb-[140px]">
             <HeroItem className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
               <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[104px]">
                 Fullstack
@@ -82,12 +82,12 @@ export default async function Home() {
       </div>
 
       <div className="relative z-10 rounded-t-[28px] bg-bg">
-        <FadeIn>
+        <FadeIn once={false}>
           <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
             <div className="mb-8 text-sm text-text-secondary sm:mb-14">
               I can help you with ...
             </div>
-            <StaggerGroup className="grid gap-8 sm:grid-cols-3 sm:gap-8">
+            <StaggerGroup once={false} className="grid gap-8 sm:grid-cols-3 sm:gap-8">
               {services.map((s: { num: string; title: string; body: string }) => (
                 <StaggerItem key={s.num} className="border-t border-border pt-5">
                   <span className="mb-8 block font-display text-[40px] text-text-secondary sm:mb-14 sm:text-[56px]">
@@ -105,7 +105,7 @@ export default async function Home() {
           </section>
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn once={false}>
           <section id="work" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
             <div className="mb-8 text-sm text-text-secondary sm:mb-14">
               Selected Work <sup className="text-accent-blue">({featured.length})</sup>
@@ -122,17 +122,17 @@ export default async function Home() {
           </section>
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn once={false}>
           <section id="testimonials" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
             <TestimonialCarousel testimonials={testimonials} />
           </section>
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn once={false}>
           <ClientLogos logos={logos} />
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn once={false}>
           <section id="process" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
             <div className="grid gap-8 sm:gap-14 md:grid-cols-2">
               <div>
