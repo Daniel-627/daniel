@@ -29,31 +29,31 @@ export default async function ContactPage() {
   return (
     <div>
       <FadeIn>
-        <header className="mx-auto max-w-6xl px-8 pb-16 pt-24 md:pt-[120px]">
+        <header className="mx-auto max-w-6xl px-5 pb-12 pt-16 sm:px-8 sm:pb-16 sm:pt-24 md:pt-[120px]">
           {contact?.availability && (
-            <div className="mb-5 flex items-center gap-2 text-sm text-text-secondary">
+            <div className="mb-4 flex items-center gap-2 text-sm text-text-secondary sm:mb-5">
               <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
               {contact.availability}
             </div>
           )}
-          <h1 className="max-w-[720px] font-display text-[44px] font-semibold leading-[1.05] tracking-tight md:text-[72px]">
+          <h1 className="max-w-[720px] font-display text-[32px] font-semibold leading-[1.1] tracking-tight sm:text-[44px] sm:leading-[1.05] md:text-[72px]">
             {contact?.headline}
           </h1>
         </header>
       </FadeIn>
 
-      <section className="mx-auto max-w-6xl border-t border-border px-8 py-20">
-        <div className="grid gap-16 md:grid-cols-[1fr_1.3fr]">
+      <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-20">
+        <div className="grid gap-10 sm:gap-16 md:grid-cols-[1fr_1.3fr]">
           <FadeIn>
             <div>
-              <StaggerGroup className="space-y-8">
+              <StaggerGroup className="space-y-6 sm:space-y-8">
                 <StaggerItem>
                   <div className="mb-2 text-[13px] text-text-secondary">
                     Email
                   </div>
                   <a
                     href={`mailto:${contact?.email}`}
-                    className="font-display text-2xl transition-colors hover:text-accent-blue"
+                    className="break-all font-display text-xl transition-colors hover:text-accent-blue sm:text-2xl"
                   >
                     {contact?.email}
                   </a>
@@ -64,9 +64,9 @@ export default async function ContactPage() {
                     <div className="mb-2 text-[13px] text-text-secondary">
                       Phone
                     </div>
-                    <a         
+                    <a
                       href={`tel:${contact.phone}`}
-                      className="font-display text-2xl transition-colors hover:text-accent-blue"
+                      className="font-display text-xl transition-colors hover:text-accent-blue sm:text-2xl"
                     >
                       {contact.phone}
                     </a>
@@ -77,7 +77,7 @@ export default async function ContactPage() {
                   <div className="mb-2 text-[13px] text-text-secondary">
                     Location
                   </div>
-                  <div className="text-[17px]">{contact?.location}</div>
+                  <div className="text-[16px] sm:text-[17px]">{contact?.location}</div>
                 </StaggerItem>
 
                 <StaggerItem>
