@@ -1,11 +1,8 @@
 import Link from "next/link";
-import CtaButton from "@/components/CtaButton";
 import MagneticCtaButton from "@/components/MagneticCtaButton";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ProcessAccordion from "@/components/ProcessAccordion";
 import SocialIcon from "@/components/SocialIcon";
-import CursorGlow from "@/components/CursorGlow";
-import LogoMarquee from "@/components/LogoMarquee";
 import SelectedWork from "@/components/SelectedWork";
 import FadeIn from "@/components/motion/FadeIn";
 import { client } from "@/sanity/lib/client";
@@ -13,7 +10,6 @@ import {
   FEATURED_PROJECTS_QUERY,
   SERVICES_QUERY,
   TESTIMONIALS_QUERY,
-  CLIENT_LOGOS_QUERY,
   PROCESS_STEPS_QUERY,
   SOCIAL_LINKS_QUERY,
 } from "@/sanity/lib/queries";
@@ -21,62 +17,59 @@ import {
 export const revalidate = 60;
 
 export default async function Home() {
-  const [featured, services, testimonials, logos, processSteps, socialLinks] =
+  const [featured, services, testimonials, processSteps, socialLinks] =
     await Promise.all([
       client.fetch(FEATURED_PROJECTS_QUERY),
       client.fetch(SERVICES_QUERY),
       client.fetch(TESTIMONIALS_QUERY),
-      client.fetch(CLIENT_LOGOS_QUERY),
       client.fetch(PROCESS_STEPS_QUERY),
       client.fetch(SOCIAL_LINKS_QUERY),
     ]);
 
   return (
     <div id="top">
-      <CursorGlow>
-        <header className="mx-auto max-w-6xl px-8 pb-24 pt-24 md:pt-[120px] md:pb-[140px]">
-          <div className="flex flex-wrap items-start justify-between gap-10">
-            <h1 className="font-display text-[52px] font-semibold leading-[0.98] tracking-tight md:text-[104px]">
-              Fullstack
-              <br />
-              Developer
-            </h1>
-            <p className="max-w-[260px] pt-4 text-sm text-text-secondary">
-              specialized in React, Next.js, Node.js, and WordPress.
-            </p>
-          </div>
-
-          <p className="mt-14 max-w-[640px] text-lg leading-relaxed text-[#c7c7c7] md:text-[19px]">
-            I help startups and business owners turn ideas into fast, reliable
-            products — from custom web apps to client sites built to actually
-            convert. Based in Kenya, working with teams anywhere.
+      <header className="mx-auto max-w-6xl px-8 pb-24 pt-24 md:pt-[120px] md:pb-[140px]">
+        <div className="flex flex-wrap items-start justify-between gap-10">
+          <h1 className="font-display text-[52px] font-semibold leading-[0.98] tracking-tight md:text-[104px]">
+            Fullstack
+            <br />
+            Developer
+          </h1>
+          <p className="max-w-[260px] pt-4 text-sm text-text-secondary">
+            specialized in React, Next.js, Node.js, and WordPress.
           </p>
+        </div>
 
-          <div className="mt-14 flex flex-wrap items-end justify-between gap-7">
-            <MagneticCtaButton href="/contact">Let&apos;s talk</MagneticCtaButton>
-            <div className="text-sm">
-              <div className="mb-3 w-40 border-b border-border pb-3 text-text-secondary">
-                Let&apos;s get connected
-              </div>
-              <ul className="mt-3 flex flex-col gap-3">
-                {socialLinks.map((s: { label: string; platform: string; url: string }) => (
-                  <li key={s.label}>
-                    <a
-                      href={s.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-2.5 text-text-secondary transition-colors hover:text-text-primary"
-                    >
-                      <SocialIcon platform={s.platform} />
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+        <p className="mt-14 max-w-[640px] text-lg leading-relaxed text-[#c7c7c7] md:text-[19px]">
+          I help startups and business owners turn ideas into fast, reliable
+          products — from custom web apps to client sites built to actually
+          convert. Based in Kenya, working with teams anywhere.
+        </p>
+
+        <div className="mt-14 flex flex-wrap items-end justify-between gap-7">
+          <MagneticCtaButton href="/contact">Let&apos;s talk</MagneticCtaButton>
+          <div className="text-sm">
+            <div className="mb-3 w-40 border-b border-border pb-3 text-text-secondary">
+              Let&apos;s get connected
             </div>
+            <ul className="mt-3 flex flex-col gap-3">
+              {socialLinks.map((s: { label: string; platform: string; url: string }) => (
+                <li key={s.label}>
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2.5 text-text-secondary transition-colors hover:text-text-primary"
+                  >
+                    <SocialIcon platform={s.platform} />
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </header>
-      </CursorGlow>
+        </div>
+      </header>
 
       <FadeIn>
         <section className="mx-auto max-w-6xl border-t border-border px-8 py-24">
@@ -123,8 +116,6 @@ export default async function Home() {
           <TestimonialCarousel testimonials={testimonials} />
         </section>
       </FadeIn>
-
-      <LogoMarquee logos={logos} />
 
       <FadeIn>
         <section id="process" className="mx-auto max-w-6xl border-t border-border px-8 py-24">

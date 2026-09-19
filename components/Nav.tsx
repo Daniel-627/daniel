@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 
 const links = [
   { href: "/about", label: "About" },
@@ -11,31 +8,8 @@ const links = [
 ];
 
 export default function Nav() {
-  const [showBg, setShowBg] = useState(true);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBg(false);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setShowBg(true), 150);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
-
   return (
-    <nav
-      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
-        showBg
-          ? "border-border bg-bg/85 backdrop-blur-md"
-          : "border-transparent bg-transparent backdrop-blur-none"
-      }`}
-    >
+    <nav className="sticky top-0 z-50 bg-transparent">
       <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-8">
         <Link
           href="/"
