@@ -7,7 +7,7 @@ export default function ClientLogos({ logos }: { logos: Logo[] }) {
   if (!logos?.length) return null;
 
   return (
-    <div className="grid grid-cols-2 border-t border-b border-border sm:grid-cols-3 md:grid-cols-4">
+    <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4">
       {logos.map((l) => (
         <div
           key={l.name}
