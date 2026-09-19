@@ -49,24 +49,23 @@ export default async function Home() {
         <div className="mt-14 flex flex-wrap items-end justify-between gap-7">
           <MagneticCtaButton href="/contact">Let&apos;s talk</MagneticCtaButton>
           <div className="text-sm">
-            <div className="mb-3 w-40 border-b border-border pb-3 text-text-secondary">
+            <div className="mb-3 w-full max-w-40 border-b border-border pb-3 text-text-secondary">
               Let&apos;s get connected
             </div>
-            <ul className="mt-3 flex flex-col gap-3">
+            <div className="mt-4 grid w-fit grid-cols-4 gap-x-5 gap-y-4">
               {socialLinks.map((s: { label: string; platform: string; url: string }) => (
-                <li key={s.label}>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2.5 text-text-secondary transition-colors hover:text-text-primary"
-                  >
-                    <SocialIcon platform={s.platform} />
-                    {s.label}
-                  </a>
-                </li>
+                <a
+                  key={s.label}
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="flex items-center justify-center text-text-secondary transition-colors hover:text-text-primary"
+                >
+                  <SocialIcon platform={s.platform} size={20} />
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </header>
