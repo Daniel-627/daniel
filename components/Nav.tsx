@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -49,11 +50,20 @@ export default function Nav() {
         <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-5 sm:px-8">
           <Link
             href="/"
-            className="font-display text-[15px] font-semibold tracking-tight sm:text-[17px]"
+            className="flex items-center gap-2"
             onClick={() => setMenuOpen(false)}
           >
-            daniel<span className="text-accent-blue">.co</span>
-            <span className="text-accent-purple">.ke</span>
+            <Image
+              src="/logo.png"
+              alt="daniel.co.ke"
+              width={28}
+              height={28}
+              className="md:hidden"
+            />
+            <span className="hidden font-display text-[17px] font-semibold tracking-tight md:inline">
+              daniel<span className="text-accent-blue">.co</span>
+              <span className="text-accent-purple">.ke</span>
+            </span>
           </Link>
 
           <div className="hidden gap-9 text-[14.5px] text-text-secondary md:flex">
