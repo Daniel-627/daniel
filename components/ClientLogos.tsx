@@ -7,11 +7,11 @@ export default function ClientLogos({ logos }: { logos: Logo[] }) {
   if (!logos?.length) return null;
 
   return (
-    <div className="grid grid-cols-2 border-t border-l border-border sm:grid-cols-3 md:grid-cols-4">
+    <div className="grid grid-cols-2 border-t border-border sm:grid-cols-3 md:grid-cols-4">
       {logos.map((l) => (
         <div
           key={l.name}
-          className="flex h-[90px] items-center justify-center border-r border-b border-border px-4 transition-transform duration-300 hover:scale-110 sm:h-[110px]"
+          className="flex h-[90px] items-center justify-center border-b border-border px-4 transition-transform duration-300 hover:scale-110 sm:h-[110px]"
         >
           {l.logo ? (
             <Image

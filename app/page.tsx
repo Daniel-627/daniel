@@ -160,7 +160,7 @@ export default async function Home() {
           </section>
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn once={false}>
           <section id="contact" className="mx-auto max-w-6xl px-5 pb-14 pt-14 sm:px-8 sm:pb-16 sm:pt-24">
             <div className="flex items-start gap-4 sm:gap-6">
               <div className="relative mt-1 h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222] sm:mt-2 sm:h-[52px] sm:w-[52px]">
