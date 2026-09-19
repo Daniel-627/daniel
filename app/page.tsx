@@ -35,7 +35,7 @@ export default async function Home() {
     <div id="top">
       <div className="sticky top-0 z-0">
         <HeroReveal>
-          <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[120px] md:pb-[140px]">
+          <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[100px] md:pb-[140px]">
             <HeroItem className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
               <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[104px]">
                 Fullstack
