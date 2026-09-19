@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const links = [
   { href: "/about", label: "About" },
@@ -12,23 +12,22 @@ const links = [
 ];
 
 export default function Nav() {
-  const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    const diff = latest - previous;
-
-    if (latest < 80) {
-      setHidden(false);
-      return;
-    }
-    if (diff > 4) {
+  useEffect(() => {
+    const handleScroll = () => {
       setHidden(true);
-    } else if (diff < -4) {
-      setHidden(false);
-    }
-  });
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setHidden(false), 250);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
     <motion.nav
