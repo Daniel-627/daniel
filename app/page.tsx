@@ -1,11 +1,13 @@
 import Link from "next/link";
-import MagneticCtaButton from "@/components/MagneticCtaButton";
+import CtaButton from "@/components/CtaButton";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ProcessAccordion from "@/components/ProcessAccordion";
 import SocialIcon from "@/components/SocialIcon";
 import SelectedWork from "@/components/SelectedWork";
 import ClientLogos from "@/components/ClientLogos";
 import FadeIn from "@/components/motion/FadeIn";
+import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
+import { HeroReveal, HeroItem } from "@/components/motion/HeroReveal";
 import { client } from "@/sanity/lib/client";
 import {
   FEATURED_PROJECTS_QUERY,
@@ -31,56 +33,60 @@ export default async function Home() {
 
   return (
     <div id="top">
-      <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[120px] md:pb-[140px]">
-        <div className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
-          <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[104px]">
-            Fullstack
-            <br />
-            Developer
-          </h1>
-          <p className="max-w-[260px] pt-2 text-sm text-text-secondary sm:pt-4">
-            specialized in React, Next.js, Node.js, and WordPress.
-          </p>
-        </div>
+      <HeroReveal>
+        <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[120px] md:pb-[140px]">
+          <HeroItem className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
+            <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[104px]">
+              Fullstack
+              <br />
+              Developer
+            </h1>
+            <p className="max-w-[260px] pt-2 text-sm text-text-secondary sm:pt-4">
+              specialized in React, Next.js, Node.js, and WordPress.
+            </p>
+          </HeroItem>
 
-        <p className="mt-8 max-w-[640px] text-base leading-relaxed text-[#c7c7c7] sm:mt-14 sm:text-lg md:text-[19px]">
-          I help startups and business owners turn ideas into fast, reliable
-          products — from custom web apps to client sites built to actually
-          convert. Based in Kenya, working with teams anywhere.
-        </p>
+          <HeroItem>
+            <p className="mt-8 max-w-[640px] text-base leading-relaxed text-[#c7c7c7] sm:mt-14 sm:text-lg md:text-[19px]">
+              I help startups and business owners turn ideas into fast, reliable
+              products — from custom web apps to client sites built to actually
+              convert. Based in Kenya, working with teams anywhere.
+            </p>
+          </HeroItem>
 
-        <div className="mt-8 flex flex-wrap items-end justify-between gap-7 sm:mt-14">
-          <MagneticCtaButton href="/contact">Let&apos;s talk</MagneticCtaButton>
-          <div className="text-sm">
-            <div className="mb-3 w-full max-w-40 border-b border-border pb-3 text-text-secondary">
-              Let&apos;s get connected
+          <HeroItem className="mt-8 flex flex-wrap items-end justify-between gap-7 sm:mt-14">
+            <CtaButton href="/contact">Let&apos;s talk</CtaButton>
+            <div className="text-sm">
+              <div className="mb-3 w-full max-w-40 border-b border-border pb-3 text-text-secondary">
+                Let&apos;s get connected
+              </div>
+              <div className="mt-4 grid w-fit grid-cols-4 gap-x-5 gap-y-4">
+                {socialLinks.map((s: { label: string; platform: string; url: string }) => (
+                  <a
+                    key={s.label}
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    className="flex items-center justify-center text-text-secondary transition-colors hover:text-text-primary"
+                  >
+                    <SocialIcon platform={s.platform} size={20} />
+                  </a>
+                ))}
+              </div>
             </div>
-            <div className="mt-4 grid w-fit grid-cols-4 gap-x-5 gap-y-4">
-              {socialLinks.map((s: { label: string; platform: string; url: string }) => (
-                <a
-                  key={s.label}
-                  href={s.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={s.label}
-                  className="flex items-center justify-center text-text-secondary transition-colors hover:text-text-primary"
-                >
-                  <SocialIcon platform={s.platform} size={20} />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </header>
+          </HeroItem>
+        </header>
+      </HeroReveal>
 
       <FadeIn>
         <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
           <div className="mb-8 text-sm text-text-secondary sm:mb-14">
             I can help you with ...
           </div>
-          <div className="grid gap-8 sm:grid-cols-3 sm:gap-8">
+          <StaggerGroup className="grid gap-8 sm:grid-cols-3 sm:gap-8">
             {services.map((s: { num: string; title: string; body: string }) => (
-              <div key={s.num} className="border-t border-border pt-5">
+              <StaggerItem key={s.num} className="border-t border-border pt-5">
                 <span className="mb-8 block font-display text-[40px] text-text-secondary sm:mb-14 sm:text-[56px]">
                   {s.num}
                 </span>
@@ -90,9 +96,9 @@ export default async function Home() {
                 <p className="max-w-[280px] text-[14.5px] text-text-secondary">
                   {s.body}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
         </section>
       </FadeIn>
 
@@ -119,7 +125,9 @@ export default async function Home() {
         </section>
       </FadeIn>
 
-      <ClientLogos logos={logos} />
+      <FadeIn>
+        <ClientLogos logos={logos} />
+      </FadeIn>
 
       <FadeIn>
         <section id="process" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
@@ -161,7 +169,7 @@ export default async function Home() {
             </h2>
           </div>
           <div className="mt-8 flex justify-end sm:mt-10">
-            <MagneticCtaButton href="/contact">Drop me a line</MagneticCtaButton>
+            <CtaButton href="/contact">Drop me a line</CtaButton>
           </div>
         </section>
       </FadeIn>

@@ -11,7 +11,7 @@ export default function ClientLogos({ logos }: { logos: Logo[] }) {
       {logos.map((l) => (
         <div
           key={l.name}
-          className="flex h-[90px] items-center justify-center border-r border-b border-border px-4 opacity-55 grayscale transition-opacity hover:opacity-100 sm:h-[110px]"
+          className="flex h-[90px] items-center justify-center border-r border-b border-border px-4 transition-transform duration-300 hover:scale-110 sm:h-[110px]"
         >
           {l.logo ? (
             <Image
