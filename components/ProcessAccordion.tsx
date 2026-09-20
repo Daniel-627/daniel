@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 type Step = { num: string; label: string; description?: string };
@@ -55,11 +56,22 @@ export default function ProcessAccordion({ steps }: { steps: Step[] }) {
                 +
               </span>
             </div>
-            {isOpen && s.description && (
-              <div className="mb-5 rounded-xl bg-bg-raised p-5 text-[14.5px] leading-relaxed text-text-secondary">
-                {s.description}
-              </div>
-            )}
+            <AnimatePresence initial={false}>
+              {isOpen && s.description && (
+                <motion.div
+                  key="content"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="mb-5 rounded-xl bg-bg-raised p-5 text-[14.5px] leading-relaxed text-text-secondary">
+                    {s.description}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </StaggerItem>
         );
       })}
