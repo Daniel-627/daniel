@@ -1,24 +1,37 @@
-"use client";
+import Image from "next/image";
+import { client } from "@/sanity/lib/client";
+import { SOCIAL_LINKS_QUERY } from "@/sanity/lib/queries";
+import SocialIcon from "@/components/SocialIcon";
+import FooterReveal from "@/components/motion/FooterReveal";
 
-import { motion, type Variants } from "framer-motion";
-import { ReactNode } from "react";
+export default async function Footer() {
+  const socials = await client.fetch(SOCIAL_LINKS_QUERY);
 
-const variants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
-};
-
-export default function FooterReveal({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={variants}
-      transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </motion.div>
+    <footer className="border-t border-border">
+      <FooterReveal className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-5 py-7 text-center text-[13.5px] text-text-secondary sm:flex-row sm:justify-between sm:px-8 sm:text-left">
+        <div className="flex items-center gap-2">
+          <Image src="/logo.png" alt="daniel.co.ke" width={18} height={18} className="sm:hidden" />
+          <span>© {new Date().getFullYear()} Daniel. All rights reserved.</span>
+        </div>
+        <div className="flex gap-5">
+          {socials.map((s: { label: string; platform: string; url: string }) => (
+            <a
+              key={s.label}
+              href={s.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={s.label}
+              className="transition-colors hover:text-text-primary"
+            >
+              <SocialIcon platform={s.platform} size={16} />
+            </a>
+          ))}
+        </div>
+        <a href="#top" className="transition-colors hover:text-text-primary">
+          Back to top ↑
+        </a>
+      </FooterReveal>
+    </footer>
   );
 }

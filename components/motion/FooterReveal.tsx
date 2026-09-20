@@ -16,7 +16,7 @@ export default function FooterReveal({ children, className }: { children: ReactN
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       variants={variants}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
