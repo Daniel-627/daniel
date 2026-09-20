@@ -22,8 +22,8 @@ export default function ClientLogos({ logos }: { logos: Logo[] }) {
               <Image
                 src={urlFor(l.logo).width(160).url()}
                 alt={l.name}
-                width={200}
-                height={66}
+                width={240}
+                height={80}
                 className="h-auto max-h-8 w-auto sm:max-h-10"
               />
             ) : (

@@ -49,22 +49,19 @@ export default function Nav() {
       >
         <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-5 sm:px-8">
           <Link
-            href="/"
-            className="flex items-center gap-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            <Image
-              src="/logo.png"
-              alt="daniel.co.ke"
-              width={28}
-              height={28}
-              className="md:hidden"
-            />
-            <span className="hidden font-display text-[17px] font-semibold tracking-tight md:inline">
-              daniel<span className="text-accent-blue">.co</span>
-              <span className="text-accent-purple">.ke</span>
-            </span>
-          </Link>
+  href="/"
+  className="flex items-center"
+  onClick={() => setMenuOpen(false)}
+>
+  <Image
+    src="/logo.png"
+    alt="daniel.co.ke"
+    width={36}
+    height={36}
+    className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9"
+    priority
+  />
+</Link>
 
           <div className="hidden gap-9 text-[14.5px] text-text-secondary md:flex">
             {links.map((link) => (
