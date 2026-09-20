@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );
