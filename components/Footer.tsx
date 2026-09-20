@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { SOCIAL_LINKS_QUERY } from "@/sanity/lib/queries";
 import SocialIcon from "@/components/SocialIcon";
 import FooterReveal from "@/components/motion/FooterReveal";
+import BackToTop from "@/components/BackToTop";
 
 export default async function Footer() {
   const socials = await client.fetch(SOCIAL_LINKS_QUERY);
@@ -28,9 +29,7 @@ export default async function Footer() {
             </a>
           ))}
         </div>
-        <a href="#top" className="transition-colors hover:text-text-primary">
-          Back to top ↑
-        </a>
+        <BackToTop />
       </FooterReveal>
     </footer>
   );
