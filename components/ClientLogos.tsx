@@ -11,7 +11,7 @@ export default function ClientLogos({ logos }: { logos: Logo[] }) {
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
       <StaggerGroup
         once={false}
-        className="grid grid-cols-2 border-t border-b border-border sm:grid-cols-3 md:grid-cols-4"
+        className="grid grid-cols-2 border-t border-border sm:grid-cols-3 md:grid-cols-4"
       >
         {logos.map((l) => (
           <StaggerItem
