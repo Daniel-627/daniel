@@ -36,18 +36,18 @@ export default async function Home() {
       <div className="sticky top-0 z-0">
         <HeroReveal>
 <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 md:pt-[80px] md:pb-[90px]">            <HeroItem className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
-              <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[104px]">
+              <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[100px]">
                 Fullstack
                 <br />
                 Developer
               </h1>
-              <p className="max-w-[260px] pt-2 text-sm text-text-secondary sm:pt-4">
+              <p className="max-w-[260px] pt-2 text-sm text-text-secondary sm:pt-3.5">
                 specialized in React, Next.js, Node.js, and WordPress.
               </p>
             </HeroItem>
 
             <HeroItem>
-              <p className="mt-8 max-w-[640px] text-base leading-relaxed text-[#c7c7c7] sm:mt-14 sm:text-lg md:text-[19px]">
+              <p className="mt-8 max-w-[640px] text-base leading-relaxed text-[#c7c7c7] sm:mt-12 sm:text-lg md:text-[19px]">
                 I help startups and business owners turn ideas into fast, reliable
                 products — from custom web apps to client sites built to actually
                 convert. Based in Kenya, working with teams anywhere.
