@@ -32,7 +32,7 @@ export default async function ProjectsPage() {
                 href="#resources"
                 className="inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
               >
-                Downloads &amp; Resources ↓
+                Downloads, Links &amp; Resources ↓
               </a>
             )}
           </div>

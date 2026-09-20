@@ -25,7 +25,7 @@ export default function ResourcesSection({ resources }: { resources: Resource[] 
   return (
     <section id="resources" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
       <div className="mb-8 text-sm text-text-secondary sm:mb-14">
-        Downloads &amp; Resources
+        Downloads,Links &amp; Resources
       </div>
 
       <StaggerGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
