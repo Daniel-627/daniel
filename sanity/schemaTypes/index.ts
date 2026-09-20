@@ -11,6 +11,7 @@ import timelineEntry from "./timelineEntry";
 import aboutPage from "./aboutPage";
 import { i } from "framer-motion/client";
 import contactPage from "./contactPage";
+import resource from "./resource";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -24,5 +25,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     timelineEntry,
     aboutPage,
     contactPage,
+    resource,
   ],
 };

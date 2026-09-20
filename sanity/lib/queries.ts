@@ -121,3 +121,13 @@ export const CONTACT_PAGE_QUERY = /* groq */ `
   availability
 }
 `;
+
+export const RESOURCES_QUERY = /* groq */ `
+*[_type == "resource"] | order(order asc) {
+  title,
+  description,
+  category,
+  url,
+  thumbnail
+}
+`;
