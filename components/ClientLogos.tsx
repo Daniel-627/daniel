@@ -16,18 +16,18 @@ export default function ClientLogos({ logos }: { logos: Logo[] }) {
         {logos.map((l) => (
           <StaggerItem
             key={l.name}
-            className="flex h-[90px] items-center justify-center px-4 transition-transform duration-300 hover:scale-125 sm:h-[110px]"
+            className="flex h-[120px] items-center justify-center px-6 transition-transform duration-300 hover:scale-125 sm:h-[150px]"
           >
             {l.logo ? (
               <Image
-                src={urlFor(l.logo).width(160).url()}
+                src={urlFor(l.logo).width(320).url()}
                 alt={l.name}
                 width={240}
                 height={80}
-                className="h-auto max-h-8 w-auto sm:max-h-10"
+                className="h-auto max-h-14 w-auto sm:max-h-[72px]"
               />
             ) : (
-              <span className="whitespace-nowrap font-display text-[13px] text-text-secondary sm:text-[15px]">
+              <span className="whitespace-nowrap font-display text-base text-text-secondary sm:text-lg">
                 {l.name}
               </span>
             )}

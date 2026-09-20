@@ -43,10 +43,11 @@ export default function Nav() {
   return (
     <>
       <motion.nav
-        animate={{ y: hidden && !menuOpen ? "-100%" : "0%" }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="sticky top-0 z-50 bg-transparent"
-      >
+  initial={{ y: "-100%", opacity: 0 }}
+  animate={{ y: hidden && !menuOpen ? "-100%" : "0%", opacity: 1 }}
+  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+  className="sticky top-0 z-50 bg-transparent"
+>
         <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-5 sm:px-8">
           <Link
   href="/"
