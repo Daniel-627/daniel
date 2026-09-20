@@ -13,23 +13,9 @@ const item: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
-export function HeroReveal({
-  children,
-  className,
-  once = false,
-}: {
-  children: ReactNode;
-  className?: string;
-  once?: boolean;
-}) {
+export function HeroReveal({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, margin: "-100px" }}
-      variants={container}
-      className={className}
-    >
+    <motion.div initial="hidden" animate="visible" variants={container} className={className}>
       {children}
     </motion.div>
   );
