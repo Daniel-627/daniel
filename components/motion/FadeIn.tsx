@@ -4,7 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import { ReactNode } from "react";
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 32 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -26,7 +26,7 @@ export default function FadeIn({
       whileInView="visible"
       viewport={{ once, margin: "-80px" }}
       variants={variants}
-      transition={{ duration: 0.8, delay: 0.15 + delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1.4, delay: 0.15 + delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
