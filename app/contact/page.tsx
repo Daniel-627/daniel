@@ -81,24 +81,25 @@ export default async function ContactPage() {
                 </StaggerItem>
 
                 <StaggerItem>
-                  <div className="mb-3 text-[13px] text-text-secondary">
-                    Elsewhere
-                  </div>
-                  <div className="flex gap-4">
-                    {socials.map((s) => (
-                      <a
-                        key={s.label}
-                        href={s.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={s.label}
-                        className="text-text-secondary transition-colors hover:text-text-primary"
-                      >
-                        <SocialIcon platform={s.platform} size={20} />
-                      </a>
-                    ))}
-                  </div>
-                </StaggerItem>
+  <div className="mb-3 text-[13px] text-text-secondary">
+    Elsewhere
+  </div>
+  <StaggerGroup once={false} className="flex gap-4">
+    {socials.map((s) => (
+      <StaggerItem key={s.label}>
+        <a
+          href={s.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={s.label}
+          className="text-text-secondary transition-colors hover:text-text-primary"
+        >
+          <SocialIcon platform={s.platform} size={20} />
+        </a>
+      </StaggerItem>
+    ))}
+  </StaggerGroup>
+</StaggerItem>
               </StaggerGroup>
             </div>
           </FadeIn>

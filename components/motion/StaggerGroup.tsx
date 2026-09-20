@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants, type HTMLMotionProps } from "framer-motion";
 import { ReactNode } from "react";
 
 const container: Variants = {
@@ -38,12 +38,10 @@ export function StaggerGroup({
 export function StaggerItem({
   children,
   className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+  ...rest
+}: HTMLMotionProps<"div"> & { children: ReactNode; className?: string }) {
   return (
-    <motion.div className={className} variants={item}>
+    <motion.div className={className} variants={item} {...rest}>
       {children}
     </motion.div>
   );

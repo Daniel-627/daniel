@@ -61,20 +61,21 @@ export default async function Home() {
                 <div className="mb-3 w-full max-w-40 border-b border-border pb-3 text-text-secondary">
                   Let&apos;s get connected
                 </div>
-                <div className="mt-4 grid w-fit grid-cols-4 gap-x-5 gap-y-4">
-                  {socialLinks.map((s: { label: string; platform: string; url: string }) => (
-                    <a
-                      key={s.label}
-                      href={s.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={s.label}
-                      className="flex items-center justify-center text-text-secondary transition-colors hover:text-text-primary"
-                    >
-                      <SocialIcon platform={s.platform} size={20} />
-                    </a>
-                  ))}
-                </div>
+                <StaggerGroup once={false} className="mt-4 grid w-fit grid-cols-4 gap-x-5 gap-y-4">
+  {socialLinks.map((s: { label: string; platform: string; url: string }) => (
+    <StaggerItem key={s.label}>
+      <a
+        href={s.url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={s.label}
+        className="flex items-center justify-center text-text-secondary transition-colors hover:text-text-primary"
+      >
+        <SocialIcon platform={s.platform} size={20} />
+      </a>
+    </StaggerItem>
+  ))}
+</StaggerGroup>
               </div>
             </HeroItem>
           </header>
@@ -128,9 +129,7 @@ export default async function Home() {
           </section>
         </FadeIn>
 
-        <FadeIn once={false}>
-          <ClientLogos logos={logos} />
-        </FadeIn>
+        <ClientLogos logos={logos} />
 
         <FadeIn once={false}>
           <section id="process" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">

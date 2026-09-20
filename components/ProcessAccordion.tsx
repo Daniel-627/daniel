@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 type Step = { num: string; label: string; description?: string };
 
@@ -28,11 +29,11 @@ export default function ProcessAccordion({ steps }: { steps: Step[] }) {
         };
 
   return (
-    <div>
+    <StaggerGroup once={false}>
       {steps.map((s, i) => {
         const isOpen = openIndex === i;
         return (
-          <div
+          <StaggerItem
             key={s.num}
             {...rowProps(i)}
             className={`border-t border-border last:border-b ${
@@ -59,9 +60,9 @@ export default function ProcessAccordion({ steps }: { steps: Step[] }) {
                 {s.description}
               </div>
             )}
-          </div>
+          </StaggerItem>
         );
       })}
-    </div>
+    </StaggerGroup>
   );
 }
