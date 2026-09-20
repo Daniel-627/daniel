@@ -53,13 +53,13 @@ export default async function ProjectDetailPage({
         </Link>
       </div>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <header className="mx-auto max-w-6xl px-5 pb-10 pt-8 sm:px-8 sm:pb-14 sm:pt-10">
           <h1 className="max-w-[820px] font-display text-[32px] font-semibold leading-[1.05] tracking-tight sm:text-[44px] sm:leading-none md:text-[88px]">
             {project.title}
           </h1>
 
-          <StaggerGroup className="mt-8 flex flex-wrap gap-6 border-t border-border pt-6 sm:mt-11 sm:gap-12">
+          <StaggerGroup once={false} className="mt-8 flex flex-wrap gap-6 border-t border-border pt-6 sm:mt-11 sm:gap-12">
             {project.metaFields?.map((m: { label: string; value: string; href?: string }) => (
               <StaggerItem key={m.label}>
                 <div className="mb-1.5 text-[13px] text-text-secondary">
@@ -85,7 +85,7 @@ export default async function ProjectDetailPage({
         </header>
       </FadeIn>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="relative my-10 aspect-video w-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-[#232427] to-[#17181a] sm:my-14">
             {project.heroImage ? (
@@ -100,7 +100,7 @@ export default async function ProjectDetailPage({
         </div>
       </FadeIn>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <section className="mx-auto grid max-w-6xl gap-6 border-t border-border px-5 py-10 sm:gap-14 sm:px-8 sm:py-[60px] md:grid-cols-[1fr_1.6fr]">
           <h2 className="font-display text-2xl font-medium tracking-tight sm:text-[26px] md:text-[34px]">
             Overview
@@ -116,9 +116,9 @@ export default async function ProjectDetailPage({
         </section>
       </FadeIn>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <section className="mx-auto max-w-6xl border-t border-border px-5 py-10 sm:px-8 sm:py-[60px]">
-          <StaggerGroup>
+          <StaggerGroup once={false}>
             {project.didList?.map((d: { task: string; tag: string }) => (
               <StaggerItem
                 key={d.task}
@@ -133,9 +133,10 @@ export default async function ProjectDetailPage({
       </FadeIn>
 
       {project.gallery?.length ? (
-        <FadeIn>
+        <FadeIn once={false}>
           <section className="mx-auto max-w-6xl border-t border-border px-5 py-10 sm:px-8 sm:py-[60px]">
             <StaggerGroup
+              once={false}
               className={`grid gap-3 sm:gap-4 ${
                 isDesign
                   ? "grid-cols-2 auto-rows-[150px] sm:grid-cols-3 sm:auto-rows-[200px]"
@@ -167,10 +168,12 @@ export default async function ProjectDetailPage({
       ) : null}
 
       {project.nextProject && (
-        <NextProjectLink
-          slug={project.nextProject.slug}
-          title={project.nextProject.title}
-        />
+        <FadeIn once={false}>
+          <NextProjectLink
+            slug={project.nextProject.slug}
+            title={project.nextProject.title}
+          />
+        </FadeIn>
       )}
     </div>
   );

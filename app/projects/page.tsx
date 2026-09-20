@@ -14,7 +14,7 @@ export default async function ProjectsPage() {
 
   return (
     <div>
-      <FadeIn>
+      <FadeIn once={false}>
         <header className="mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24 md:pt-[120px]">
           <div className="mb-4 text-sm text-text-secondary sm:mb-5">
             Projects ({projects.length})

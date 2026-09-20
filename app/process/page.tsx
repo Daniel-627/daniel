@@ -24,7 +24,7 @@ export default async function ProcessPage() {
 
   return (
     <div>
-      <FadeIn>
+      <FadeIn once={false}>
         <header className="mx-auto max-w-6xl px-5 pb-12 pt-16 sm:px-8 sm:pb-16 sm:pt-24 md:pt-[120px]">
           <div className="mb-4 text-sm text-text-secondary sm:mb-5">Process</div>
           <h1 className="max-w-[820px] font-display text-[32px] font-semibold leading-[1.1] tracking-tight sm:text-[44px] sm:leading-[1.02] md:text-[76px]">
@@ -38,7 +38,7 @@ export default async function ProcessPage() {
       </FadeIn>
 
       {steps.map((s, i) => (
-        <FadeIn key={s.num} delay={i * 0.05}>
+        <FadeIn key={s.num} delay={i * 0.05} once={false}>
           <section className="mx-auto max-w-6xl border-t border-border px-5 py-12 sm:px-8 sm:py-20">
             <div className="grid gap-6 sm:gap-10 md:grid-cols-[200px_1fr]">
               <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-2">
@@ -71,7 +71,7 @@ export default async function ProcessPage() {
                       <div className="mb-3 text-[13px] text-text-secondary">
                         What you get
                       </div>
-                      <StaggerGroup className="space-y-2 text-[14.5px]">
+                      <StaggerGroup once={false} className="space-y-2 text-[14.5px]">
                         {s.deliverables.map((d) => (
                           <StaggerItem key={d} className="flex gap-2">
                             <span className="text-accent-blue">—</span>
@@ -87,7 +87,7 @@ export default async function ProcessPage() {
                       <div className="mb-3 text-[13px] text-text-secondary">
                         What I need from you
                       </div>
-                      <StaggerGroup className="space-y-2 text-[14.5px] text-text-secondary">
+                      <StaggerGroup once={false} className="space-y-2 text-[14.5px] text-text-secondary">
                         {s.whatINeed.map((w) => (
                           <StaggerItem key={w} className="flex gap-2">
                             <span className="text-accent-purple">—</span>
@@ -104,7 +104,7 @@ export default async function ProcessPage() {
         </FadeIn>
       ))}
 
-      <FadeIn>
+      <FadeIn once={false}>
         <section id="contact" className="mx-auto max-w-6xl px-5 pb-14 pt-14 sm:px-8 sm:pb-16 sm:pt-24">
           <div className="flex items-start gap-4 sm:gap-6">
             <div className="relative mt-1 h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222] sm:mt-2 sm:h-[52px] sm:w-[52px]">

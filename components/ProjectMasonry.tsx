@@ -59,7 +59,7 @@ export default function ProjectMasonry({ projects }: { projects: Project[] }) {
         ))}
       </motion.div>
 
-      <StaggerGroup className="columns-1 gap-4 pb-[60px] sm:columns-2 md:columns-3 xl:columns-4">
+      <StaggerGroup once={false} className="columns-1 gap-4 pb-[60px] sm:columns-2 md:columns-3 xl:columns-4">
         {filtered.map((p) => (
           <StaggerItem key={p.slug} className="mb-4 break-inside-avoid">
             <Link href={`/projects/${p.slug}`}>

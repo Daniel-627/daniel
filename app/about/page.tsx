@@ -23,7 +23,7 @@ export default async function AboutPage() {
 
   return (
     <div>
-      <FadeIn>
+      <FadeIn once={false}>
         <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-24 md:pt-[120px]">
           <h1 className="max-w-[820px] font-display text-[32px] font-semibold leading-[1.1] tracking-tight sm:text-[44px] sm:leading-[1.05] md:text-[80px]">
             {about?.headline}
@@ -34,13 +34,13 @@ export default async function AboutPage() {
         </header>
       </FadeIn>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
           <div className="grid gap-6 sm:gap-14 md:grid-cols-[1fr_2fr]">
             <h2 className="font-display text-2xl font-medium leading-tight tracking-tight sm:text-[28px] md:text-[38px]">
               What I work with
             </h2>
-            <StaggerGroup>
+            <StaggerGroup once={false}>
               {skills.map((s: { label: string; value: string }) => (
                 <StaggerItem
                   key={s.label}
@@ -57,12 +57,12 @@ export default async function AboutPage() {
         </section>
       </FadeIn>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
           <div className="mb-8 text-sm text-text-secondary sm:mb-14">
             A rough timeline
           </div>
-          <StaggerGroup>
+          <StaggerGroup once={false}>
             {timeline.map((t: { year: string; title: string; body: string }) => (
               <StaggerItem
                 key={t.year}
@@ -81,7 +81,7 @@ export default async function AboutPage() {
         </section>
       </FadeIn>
 
-      <FadeIn>
+      <FadeIn once={false}>
         <section id="contact" className="mx-auto max-w-6xl px-5 pb-14 pt-14 sm:px-8 sm:pb-16 sm:pt-24">
           <div className="flex items-start gap-4 sm:gap-6">
             <div className="relative mt-1 h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222] sm:mt-2 sm:h-[52px] sm:w-[52px]">

@@ -28,7 +28,7 @@ export default async function ContactPage() {
 
   return (
     <div>
-      <FadeIn>
+      <FadeIn once={false}>
         <header className="mx-auto max-w-6xl px-5 pb-12 pt-16 sm:px-8 sm:pb-16 sm:pt-24 md:pt-[120px]">
           {contact?.availability && (
             <div className="mb-4 flex items-center gap-2 text-sm text-text-secondary sm:mb-5">
@@ -44,9 +44,9 @@ export default async function ContactPage() {
 
       <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-20">
         <div className="grid gap-10 sm:gap-16 md:grid-cols-[1fr_1.3fr]">
-          <FadeIn>
+          <FadeIn once={false}>
             <div>
-              <StaggerGroup className="space-y-6 sm:space-y-8">
+              <StaggerGroup once={false} className="space-y-6 sm:space-y-8">
                 <StaggerItem>
                   <div className="mb-2 text-[13px] text-text-secondary">
                     Email
@@ -103,7 +103,7 @@ export default async function ContactPage() {
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.1}>
+          <FadeIn delay={0.1} once={false}>
             <ContactForm />
           </FadeIn>
         </div>

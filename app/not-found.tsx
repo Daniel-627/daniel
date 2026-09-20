@@ -4,7 +4,7 @@ import FadeIn from "@/components/motion/FadeIn";
 
 export default function NotFound() {
   return (
-    <FadeIn>
+    <FadeIn once={false}>
       <div className="mx-auto flex max-w-6xl flex-col items-center px-5 py-32 text-center sm:px-8 sm:py-48">
         <div className="mb-6 font-display text-[80px] font-semibold leading-none tracking-tight sm:text-[140px]">
           4
