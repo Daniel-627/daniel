@@ -37,12 +37,12 @@ export default async function Home() {
         <HeroReveal>
 <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 md:pt-[80px] md:pb-[90px]">            <HeroItem className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
               <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[100px]">
-                Fullstack
+                Designer &
                 <br />
-                Developer
+                Developer.
               </h1>
               <p className="max-w-[260px] pt-2 text-sm text-text-secondary sm:pt-3.5">
-                specialized in React, Next.js, Node.js, and WordPress.
+                Branding, graphic design, websites, web apps, and mobile apps.
               </p>
             </HeroItem>
 

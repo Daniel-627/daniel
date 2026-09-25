@@ -20,9 +20,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "daniel.co.ke — Fullstack Developer & Brand Designer",
+  metadataBase: new URL("https://daniel.co.ke"),
+  title: "Daniel Ochieng — Designer & Developer",
   description:
-    "Daniel — fullstack developer and brand designer based in Kenya. React, Next.js, Node.js, and visual identity work.",
+    "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
