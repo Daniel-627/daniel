@@ -84,9 +84,17 @@ export default async function Home() {
       <div className="relative z-10 rounded-t-[28px] bg-bg">
         <FadeIn once={false}>
           <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
-            <div className="mb-8 text-sm text-text-secondary sm:mb-14">
-              I can help you with ...
-            </div>
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-14">
+  <div className="text-sm text-text-secondary">
+    I can help you with ...
+  </div>
+  <Link
+    href="/services"
+    className="inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
+  >
+    Full services & pricing →
+  </Link>
+</div>
             <StaggerGroup once={false} className="grid gap-8 sm:grid-cols-3 sm:gap-8">
               {services.map((s: { num: string; title: string; body: string }) => (
                 <StaggerItem key={s.num} className="border-t border-border pt-5">

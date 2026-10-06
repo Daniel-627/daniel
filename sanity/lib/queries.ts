@@ -131,3 +131,14 @@ export const RESOURCES_QUERY = /* groq */ `
   thumbnail
 }
 `;
+
+export const SERVICES_DETAILED_QUERY = /* groq */ `
+*[_type == "service"] | order(order asc) {
+  "num": number,
+  title,
+  tagline,
+  startingPriceKsh,
+  startingPriceUsd,
+  features
+}
+`;
