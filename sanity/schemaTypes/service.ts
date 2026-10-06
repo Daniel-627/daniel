@@ -36,13 +36,14 @@ export default defineType({
       description: "Groups non-featured services under a heading on /services.",
       type: "string",
       options: {
-        list: [
-          { title: "Design", value: "design" },
-          { title: "Web & Apps", value: "web-apps" },
-          { title: "Business Systems", value: "business-systems" },
-          { title: "Infrastructure & Other", value: "infrastructure" },
-        ],
-      },
+  list: [
+    { title: "Design", value: "design" },
+    { title: "Web & Apps", value: "web-apps" },
+    { title: "No-Code & Platform Builds", value: "platform-builds" },
+    { title: "Business Systems", value: "business-systems" },
+    { title: "Infrastructure & Other", value: "infrastructure" },
+  ],
+},
       hidden: ({ document }) => Boolean(document?.featured),
     }),
     defineField({

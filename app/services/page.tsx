@@ -24,6 +24,7 @@ type Service = {
 const categoryLabels: Record<string, string> = {
   design: "Design",
   "web-apps": "Web & Apps",
+  "platform-builds": "No-Code & Platform Builds",
   "business-systems": "Business Systems",
   infrastructure: "Infrastructure & Other",
 };
