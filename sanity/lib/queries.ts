@@ -56,7 +56,7 @@ export const CLIENT_LOGOS_QUERY = /* groq */ `
 `;
 
 export const SERVICES_QUERY = /* groq */ `
-*[_type == "service"] | order(order asc) {
+*[_type == "service" && featured == true] | order(order asc) {
   "num": number,
   title,
   body
@@ -133,9 +133,10 @@ export const RESOURCES_QUERY = /* groq */ `
 `;
 
 export const SERVICES_DETAILED_QUERY = /* groq */ `
-*[_type == "service"] | order(order asc) {
+*[_type == "service"] | order(featured desc, order asc) {
   "num": number,
   title,
+  featured,
   tagline,
   startingPriceKsh,
   startingPriceUsd,

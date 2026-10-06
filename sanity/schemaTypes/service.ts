@@ -8,9 +8,8 @@ export default defineType({
     defineField({
       name: "number",
       title: "Number label",
-      description: 'Shown as-is, e.g. "01".',
+      description: 'Shown as-is, e.g. "01". Only needed for featured services.',
       type: "string",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "title",
@@ -20,14 +19,20 @@ export default defineType({
     }),
     defineField({
       name: "body",
-      title: "Description",
-      description: "Used on the homepage teaser cards.",
+      title: "Short description",
+      description: "Used on the homepage teaser cards (featured services only).",
       type: "text",
+    }),
+    defineField({
+      name: "featured",
+      title: "Featured (core service)",
+      description: "On: appears on the homepage and at the top of /services. Off: appears only further down the /services page.",
+      type: "boolean",
+      initialValue: false,
     }),
     defineField({
       name: "tagline",
       title: "Tagline (Services page)",
-      description: "One short line under the title on the full /services page.",
       type: "string",
     }),
     defineField({
@@ -55,6 +60,12 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "number" },
+    select: { title: "title", subtitle: "tagline", featured: "featured" },
+    prepare({ title, subtitle, featured }) {
+      return {
+        title: featured ? `★ ${title}` : title,
+        subtitle,
+      };
+    },
   },
 });
