@@ -133,10 +133,11 @@ export const RESOURCES_QUERY = /* groq */ `
 `;
 
 export const SERVICES_DETAILED_QUERY = /* groq */ `
-*[_type == "service"] | order(featured desc, order asc) {
+*[_type == "service"] | order(featured desc, category asc, order asc) {
   "num": number,
   title,
   featured,
+  category,
   tagline,
   startingPriceKsh,
   startingPriceUsd,

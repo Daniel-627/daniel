@@ -26,9 +26,24 @@ export default defineType({
     defineField({
       name: "featured",
       title: "Featured (core service)",
-      description: "On: appears on the homepage and at the top of /services. Off: appears only further down the /services page.",
+      description: "On: appears on the homepage and at the top of /services. Off: grouped by category further down the page.",
       type: "boolean",
       initialValue: false,
+    }),
+    defineField({
+      name: "category",
+      title: "Category (additional services only)",
+      description: "Groups non-featured services under a heading on /services.",
+      type: "string",
+      options: {
+        list: [
+          { title: "Design", value: "design" },
+          { title: "Web & Apps", value: "web-apps" },
+          { title: "Business Systems", value: "business-systems" },
+          { title: "Infrastructure & Other", value: "infrastructure" },
+        ],
+      },
+      hidden: ({ document }) => Boolean(document?.featured),
     }),
     defineField({
       name: "tagline",
@@ -38,13 +53,11 @@ export default defineType({
     defineField({
       name: "startingPriceKsh",
       title: "Starting price (KSh)",
-      description: 'e.g. "From KSh 20,000"',
       type: "string",
     }),
     defineField({
       name: "startingPriceUsd",
       title: "Starting price (USD)",
-      description: 'e.g. "From $400"',
       type: "string",
     }),
     defineField({
@@ -60,12 +73,9 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "tagline", featured: "featured" },
+    select: { title: "title", subtitle: "category", featured: "featured" },
     prepare({ title, subtitle, featured }) {
-      return {
-        title: featured ? `★ ${title}` : title,
-        subtitle,
-      };
+      return { title: featured ? `★ ${title}` : title, subtitle };
     },
   },
 });

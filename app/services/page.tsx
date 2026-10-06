@@ -14,10 +14,18 @@ type Service = {
   num?: string;
   title: string;
   featured?: boolean;
+  category?: string;
   tagline?: string;
   startingPriceKsh?: string;
   startingPriceUsd?: string;
   features?: string[];
+};
+
+const categoryLabels: Record<string, string> = {
+  design: "Design",
+  "web-apps": "Web & Apps",
+  "business-systems": "Business Systems",
+  infrastructure: "Infrastructure & Other",
 };
 
 function ServiceRow({ s, index }: { s: Service; index: number }) {
@@ -87,6 +95,13 @@ export default async function ServicesPage() {
   const core = services.filter((s) => s.featured);
   const additional = services.filter((s) => !s.featured);
 
+  const grouped = additional.reduce<Record<string, Service[]>>((acc, s) => {
+    const key = s.category ?? "infrastructure";
+    acc[key] = acc[key] ?? [];
+    acc[key].push(s);
+    return acc;
+  }, {});
+
   return (
     <div>
       <FadeIn once={false}>
@@ -108,18 +123,19 @@ export default async function ServicesPage() {
         <ServiceRow key={s.title} s={s} index={i} />
       ))}
 
-      {additional.length > 0 && (
-        <FadeIn once={false}>
-          <div className="mx-auto max-w-6xl border-t border-border px-5 pb-4 pt-12 sm:px-8 sm:pt-20">
-            <div className="text-sm text-text-secondary">
-              Additional services
+      {Object.entries(grouped).map(([cat, items]) => (
+        <div key={cat}>
+          <FadeIn once={false}>
+            <div className="mx-auto max-w-6xl border-t border-border px-5 pb-2 pt-12 sm:px-8 sm:pt-20">
+              <div className="text-sm text-text-secondary">
+                {categoryLabels[cat] ?? cat}
+              </div>
             </div>
-          </div>
-        </FadeIn>
-      )}
-
-      {additional.map((s, i) => (
-        <ServiceRow key={s.title} s={s} index={i} />
+          </FadeIn>
+          {items.map((s, i) => (
+            <ServiceRow key={s.title} s={s} index={i} />
+          ))}
+        </div>
       ))}
 
       <FadeIn once={false}>
