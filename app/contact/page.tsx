@@ -4,6 +4,7 @@ import SocialIcon from "@/components/SocialIcon";
 import ContactForm from "@/components/ContactForm";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
+import TrustStrip from "@/components/TrustStrip";
 
 export const revalidate = 60;
 
@@ -45,6 +46,7 @@ export default async function ContactPage({
             {contact?.headline}
           </h1>
         </header>
+        <TrustStrip />
       </FadeIn>
 
       <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-20">

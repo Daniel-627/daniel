@@ -3,7 +3,9 @@ import { SERVICES_DETAILED_QUERY } from "@/sanity/lib/queries";
 import CtaButton from "@/components/CtaButton";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
-import { Link } from "lucide-react";
+
+import Link from "next/link";
+import TrustStrip from "@/components/TrustStrip";
 
 export const revalidate = 60;
 
@@ -125,6 +127,7 @@ export default async function ServicesPage() {
             on a quick call before anything&apos;s locked in.
           </p>
         </header>
+        <TrustStrip />
       </FadeIn>
 
       {core.map((s, i) => (
