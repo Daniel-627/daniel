@@ -116,7 +116,7 @@ export default async function ProcessPage() {
             </h2>
           </div>
           <div className="mt-8 flex justify-end sm:mt-10">
-            <CtaButton href="mailto:ochiengdaniel627@gmail.com">
+            <CtaButton href="/contact?source=process">
               Drop me a line
             </CtaButton>
           </div>

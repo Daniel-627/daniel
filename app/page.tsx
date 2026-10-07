@@ -178,7 +178,7 @@ export default async function Home() {
               </h2>
             </div>
             <div className="mt-8 flex justify-end sm:mt-10">
-              <CtaButton href="/contact">Drop me a line</CtaButton>
+              <CtaButton href="/contact?source=homepage">Drop me a line</CtaButton>
             </div>
           </section>
         </FadeIn>

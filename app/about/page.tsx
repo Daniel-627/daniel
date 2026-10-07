@@ -93,10 +93,10 @@ export default async function AboutPage() {
             </h2>
           </div>
           <div className="mt-8 flex justify-end sm:mt-10">
-            <CtaButton href="mailto:ochiengdaniel627@gmail.com">
+            <CtaButton href="/contact?source=about">
               Drop me a line
             </CtaButton>
-          </div>
+          </div>s
         </section>
       </FadeIn>
     </div>
