@@ -3,9 +3,38 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export default function ContactForm() {
+const PROJECT_TYPES = [
+  "Website",
+  "Branding / Design",
+  "Web App",
+  "Mobile App",
+  "Business System (POS, CRM, ERP, etc.)",
+  "Something else",
+];
+
+const BUDGET_RANGES = [
+  "Under KSh 20,000 / $400",
+  "KSh 20,000–60,000 / $400–1,200",
+  "KSh 60,000–150,000 / $1,200–3,000",
+  "KSh 150,000+ / $3,000+",
+  "Not sure yet",
+];
+
+export default function ContactForm({
+  initialMessage = "",
+  initialProjectType = "",
+}: {
+  initialMessage?: string;
+  initialProjectType?: string;
+}) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: initialMessage,
+    projectType: initialProjectType,
+    budgetRange: "",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +47,7 @@ export default function ContactForm() {
       });
       if (!res.ok) throw new Error();
       setStatus("sent");
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "", projectType: "", budgetRange: "" });
     } catch {
       setStatus("error");
     }
@@ -31,7 +60,7 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         className="rounded-xl border border-border bg-bg-raised p-8 text-[15px] text-text-secondary"
       >
-        Thanks — that&apos;s sent. I&apos;ll get back to you soon.
+        Thanks — that&apos;s sent. I typically reply within 24–48 hours.
       </motion.div>
     );
   }
@@ -39,9 +68,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="mb-2 block text-[13px] text-text-secondary">
-          Name
-        </label>
+        <label className="mb-2 block text-[13px] text-text-secondary">Name</label>
         <input
           required
           value={form.name}
@@ -50,9 +77,7 @@ export default function ContactForm() {
         />
       </div>
       <div>
-        <label className="mb-2 block text-[13px] text-text-secondary">
-          Email
-        </label>
+        <label className="mb-2 block text-[13px] text-text-secondary">Email</label>
         <input
           required
           type="email"
@@ -61,10 +86,37 @@ export default function ContactForm() {
           className="w-full border-b border-border bg-transparent py-3 text-[15px] outline-none transition-colors focus:border-accent-blue"
         />
       </div>
+
       <div>
-        <label className="mb-2 block text-[13px] text-text-secondary">
-          Message
-        </label>
+        <label className="mb-2 block text-[13px] text-text-secondary">Project type</label>
+        <select
+          value={form.projectType}
+          onChange={(e) => setForm({ ...form, projectType: e.target.value })}
+          className="w-full border-b border-border bg-transparent py-3 text-[15px] text-text-primary outline-none transition-colors focus:border-accent-blue"
+        >
+          <option value="" className="bg-bg">Select one</option>
+          {PROJECT_TYPES.map((t) => (
+            <option key={t} value={t} className="bg-bg">{t}</option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-[13px] text-text-secondary">Rough budget</label>
+        <select
+          value={form.budgetRange}
+          onChange={(e) => setForm({ ...form, budgetRange: e.target.value })}
+          className="w-full border-b border-border bg-transparent py-3 text-[15px] text-text-primary outline-none transition-colors focus:border-accent-blue"
+        >
+          <option value="" className="bg-bg">Select one</option>
+          {BUDGET_RANGES.map((b) => (
+            <option key={b} value={b} className="bg-bg">{b}</option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-[13px] text-text-secondary">Message</label>
         <textarea
           required
           rows={5}
@@ -90,6 +142,9 @@ export default function ContactForm() {
         {status === "sending" ? "Sending…" : "Send message"}
         <span className="dot" />
       </motion.button>
+      <p className="text-[12.5px] text-text-secondary">
+        I typically reply within 24–48 hours.
+      </p>
     </form>
   );
 }

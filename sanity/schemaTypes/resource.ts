@@ -39,6 +39,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+  name: "gated",
+  title: "Require email to access",
+  description: "On: visitor must enter name + email before getting the link (sent to their inbox). Off: direct link.",
+  type: "boolean",
+  initialValue: false,
+}),
+    defineField({
       name: "thumbnail",
       title: "Thumbnail (optional)",
       type: "image",

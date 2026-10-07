@@ -19,7 +19,12 @@ type ContactInfo = {
   availability?: string;
 };
 
-export default async function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ service?: string; source?: string }>;
+}) {
+  const { service } = await searchParams;
   const [contact, socials]: [ContactInfo, { label: string; platform: string; url: string }[]] =
     await Promise.all([
       client.fetch(CONTACT_PAGE_QUERY),
@@ -43,6 +48,13 @@ export default async function ContactPage() {
       </FadeIn>
 
       <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-20">
+        {service && (
+  <FadeIn once={false}>
+    <p className="mb-8 text-[14px] text-text-secondary">
+      Reaching out about: <span className="text-text-primary">{service}</span>
+    </p>
+  </FadeIn>
+)}
         <div className="grid gap-10 sm:gap-16 md:grid-cols-[1fr_1.3fr]">
           <FadeIn once={false}>
             <div>
@@ -104,9 +116,12 @@ export default async function ContactPage() {
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.1} once={false}>
-            <ContactForm />
-          </FadeIn>
+          <FadeIn delay={0.1}>
+  <ContactForm
+    initialMessage={service ? `I'd like to ask about: ${service}\n\n` : ""}
+    initialProjectType=""
+  />
+</FadeIn>
         </div>
       </section>
     </div>

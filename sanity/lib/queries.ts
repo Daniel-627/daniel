@@ -128,7 +128,8 @@ export const RESOURCES_QUERY = /* groq */ `
   description,
   category,
   url,
-  thumbnail
+  thumbnail,
+  gated
 }
 `;
 

@@ -3,6 +3,7 @@ import { SERVICES_DETAILED_QUERY } from "@/sanity/lib/queries";
 import CtaButton from "@/components/CtaButton";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
+import { Link } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -84,6 +85,12 @@ function ServiceRow({ s, index }: { s: Service; index: number }) {
                 </StaggerGroup>
               </div>
             )}
+            <Link
+  href={`/contact?service=${encodeURIComponent(s.title)}&source=services`}
+  className="mt-6 inline-flex items-center gap-2 border-b border-text-secondary pb-0.5 text-[13.5px] text-text-secondary transition-colors hover:border-accent-blue hover:text-accent-blue"
+>
+  Ask about this →
+</Link>
           </div>
         </div>
       </section>
@@ -145,7 +152,7 @@ export default async function ServicesPage() {
             Not sure which fits? Let&apos;s talk it through.
           </h2>
           <div className="mt-8 flex justify-start sm:mt-10">
-            <CtaButton href="/contact">Get in touch</CtaButton>
+            <CtaButton href="/contact?source=services">Get in touch</CtaButton>
           </div>
         </section>
       </FadeIn>
