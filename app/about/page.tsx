@@ -96,7 +96,7 @@ export default async function AboutPage() {
             <CtaButton href="/contact?source=about">
               Drop me a line
             </CtaButton>
-          </div>s
+          </div>
         </section>
       </FadeIn>
     </div>
