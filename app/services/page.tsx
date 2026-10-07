@@ -1,11 +1,10 @@
+import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { SERVICES_DETAILED_QUERY } from "@/sanity/lib/queries";
 import CtaButton from "@/components/CtaButton";
+
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
-
-import Link from "next/link";
-import TrustStrip from "@/components/TrustStrip";
 
 export const revalidate = 60;
 
@@ -87,12 +86,13 @@ function ServiceRow({ s, index }: { s: Service; index: number }) {
                 </StaggerGroup>
               </div>
             )}
+
             <Link
-  href={`/contact?service=${encodeURIComponent(s.title)}&source=services`}
-  className="mt-6 inline-flex items-center gap-2 border-b border-text-secondary pb-0.5 text-[13.5px] text-text-secondary transition-colors hover:border-accent-blue hover:text-accent-blue"
->
-  Ask about this →
-</Link>
+              href={`/contact?service=${encodeURIComponent(s.title)}&source=services`}
+              className="mt-6 inline-flex items-center gap-2 border-b border-text-secondary pb-0.5 text-[13.5px] text-text-secondary transition-colors hover:border-accent-blue hover:text-accent-blue"
+            >
+              Ask about this →
+            </Link>
           </div>
         </div>
       </section>
@@ -127,8 +127,9 @@ export default async function ServicesPage() {
             on a quick call before anything&apos;s locked in.
           </p>
         </header>
-        
       </FadeIn>
+
+      {/* <TrustStrip /> */}
 
       {core.map((s, i) => (
         <ServiceRow key={s.title} s={s} index={i} />
