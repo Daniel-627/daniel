@@ -46,7 +46,7 @@ export default async function ContactPage({
             {contact?.headline}
           </h1>
         </header>
-        <TrustStrip />
+        
       </FadeIn>
 
       <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-20">

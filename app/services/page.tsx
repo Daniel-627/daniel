@@ -127,7 +127,7 @@ export default async function ServicesPage() {
             on a quick call before anything&apos;s locked in.
           </p>
         </header>
-        <TrustStrip />
+        
       </FadeIn>
 
       {core.map((s, i) => (
