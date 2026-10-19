@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Analytics } from "@vercel/analytics/next";
+import JsonLd from "@/components/JsonLd";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -24,6 +25,13 @@ export const metadata: Metadata = {
   title: "Daniel Ochieng — Designer & Developer",
   description:
     "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
+    alternates: { canonical: "/" },
+openGraph: {
+  type: "website",
+  url: "https://daniel.co.ke",
+  siteName: "Daniel Ochieng",
+},
+twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -40,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   <Footer />
   <WhatsAppButton />
   <Analytics />
+  <JsonLd />
 </body>
     </html>
   );

@@ -7,7 +7,8 @@ import FadeIn from "@/components/motion/FadeIn";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Projects — daniel.co.ke",
+  title: "Projects | daniel.co.ke",
+  description: "Selected projects by Daniel Ochieng: brand identity, websites, web apps and custom systems.",
 };
 
 export default async function ProjectsPage() {

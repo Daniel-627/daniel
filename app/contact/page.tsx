@@ -10,6 +10,7 @@ export const revalidate = 60;
 
 export const metadata = {
   title: "Contact — daniel.co.ke",
+  description: "Contact Daniel Ochieng about a branding, website or web app project.",
 };
 
 type ContactInfo = {

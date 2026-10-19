@@ -7,7 +7,8 @@ import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Process — daniel.co.ke",
+  title: "Process | daniel.co.ke",
+  description: "How a project works with Daniel Ochieng, from discovery and design through development and launch.",
 };
 
 type Step = {

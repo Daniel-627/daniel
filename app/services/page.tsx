@@ -9,7 +9,8 @@ import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Services & Pricing — daniel.co.ke",
+  title: "Services & Pricing | daniel.co.ke",
+  description: "Services and starting prices for branding, web design, web development, business systems and M-Pesa payment integration.",
 };
 
 type Service = {

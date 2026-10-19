@@ -22,7 +22,17 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const project = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
-  return { title: project ? `${project.title} — daniel.co.ke` : "Project" };
+
+  const first = Array.isArray(project?.overview)
+    ? project.overview[0]?.children
+        ?.map((c: { text: string }) => c.text)
+        .join("")
+    : undefined;
+
+  return {
+    title: project ? `${project.title} — daniel.co.ke` : "Project",
+    description: first?.slice(0, 160),
+  };
 }
 
 const galleryClass = (layout?: string) => {
@@ -91,7 +101,7 @@ export default async function ProjectDetailPage({
             {project.heroImage ? (
               <Image
                 src={urlFor(project.heroImage).width(1600).url()}
-                alt={project.title}
+                alt={`${project.title} screenshot`}
                 fill
                 className="object-cover"
               />
@@ -154,7 +164,7 @@ export default async function ProjectDetailPage({
                     {g.image ? (
                       <Image
                         src={urlFor(g.image).width(1000).url()}
-                        alt=""
+                        alt={`${project.title} screenshot`}
                         fill
                         className="object-cover"
                       />

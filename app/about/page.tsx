@@ -11,7 +11,8 @@ import {
 export const revalidate = 60;
 
 export const metadata = {
-  title: "About — daniel.co.ke",
+  title: "About |daniel.co.ke",
+  description: "About Daniel Ochieng, a designer and developer in Kenya who builds brands, websites and web apps.",
 };
 
 export default async function AboutPage() {
