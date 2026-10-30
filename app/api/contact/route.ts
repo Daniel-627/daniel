@@ -1,34 +1,59 @@
-import { Resend } from "resend";
-import { NextRequest, NextResponse } from "next/server";
+import { after, NextRequest, NextResponse } from "next/server";
+import { getDb } from "@/lib/db";
+import { countRecentByIp, insertLead } from "@/lib/db/leads";
+import { clientIp, hashIp, validateContact } from "@/lib/contact";
+import { sendLeadEmail, sendTelegram } from "@/lib/notify";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const MAX_PER_HOUR = 5;
 
 export async function POST(req: NextRequest) {
+  let body: unknown;
   try {
-    const { name, email, message, projectType, budgetRange } = await req.json();
-
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-    }
-
-    const details = [
-      projectType ? `Project type: ${projectType}` : null,
-      budgetRange ? `Budget: ${budgetRange}` : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    await resend.emails.send({
-      from: "daniel.co.ke <onboarding@resend.dev>",
-      to: process.env.CONTACT_TO_EMAIL!,
-      replyTo: email,
-      subject: `New message from ${name} via daniel.co.ke${projectType ? ` — ${projectType}` : ""}`,
-      text: `From: ${name} (${email})\n${details ? details + "\n" : ""}\n${message}`,
-    });
-
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
+
+  // Honeypot: real visitors never see or fill this field. Pretend it worked.
+  if (body && typeof body === "object" && (body as Record<string, unknown>).website) {
+    return NextResponse.json({ success: true });
+  }
+
+  const result = validateContact(body);
+  if (!result.ok) {
+    return NextResponse.json({ error: result.error }, { status: 400 });
+  }
+  const lead = result.data;
+  const ipHash = hashIp(clientIp(req.headers));
+
+  let saved = false;
+  try {
+    const db = getDb();
+    if ((await countRecentByIp(db, ipHash, 60)) >= MAX_PER_HOUR) {
+      return NextResponse.json(
+        { error: "Too many messages from this connection. Please try again later." },
+        { status: 429 }
+      );
+    }
+    await insertLead(db, { ...lead, ipHash });
+    saved = true;
+  } catch (err) {
+    // Never lose a lead because the database hiccupped: fall through to alerts.
+    console.error("Saving lead failed", err);
+  }
+
+  const notify = async () => {
+    const results = await Promise.all([sendTelegram(lead), sendLeadEmail(lead)]);
+    return results.some(Boolean);
+  };
+
+  if (saved) {
+    after(notify);
+    return NextResponse.json({ success: true });
+  }
+
+  const delivered = await notify();
+  return delivered
+    ? NextResponse.json({ success: true })
+    : NextResponse.json({ error: "Something went wrong" }, { status: 500 });
 }

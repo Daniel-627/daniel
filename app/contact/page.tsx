@@ -29,7 +29,7 @@ export default async function ContactPage({
 }: {
   searchParams: Promise<{ service?: string; source?: string }>;
 }) {
-  const { service } = await searchParams;
+  const { service, source } = await searchParams;
   const [contact, socials]: [ContactInfo, { label: string; platform: string; url: string }[]] =
     await Promise.all([
       client.fetch(CONTACT_PAGE_QUERY),
@@ -126,6 +126,8 @@ export default async function ContactPage({
   <ContactForm
     initialMessage={service ? `I'd like to ask about: ${service}\n\n` : ""}
     initialProjectType=""
+    service={service ?? ""}
+    source={source ?? ""}
   />
 </FadeIn>
         </div>

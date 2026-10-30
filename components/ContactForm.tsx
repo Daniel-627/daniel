@@ -9,31 +9,38 @@ const PROJECT_TYPES = [
   "Web App",
   "Mobile App",
   "Business System (POS, CRM, ERP, etc.)",
+  "AI Automation",
   "Something else",
 ];
 
 const BUDGET_RANGES = [
-  "Under KSh 20,000 / $400",
-  "KSh 20,000–60,000 / $400–1,200",
-  "KSh 60,000–150,000 / $1,200–3,000",
-  "KSh 150,000+ / $3,000+",
+  "Under KSh 20,000 / $300",
+  "KSh 20,000–60,000 / $300–900",
+  "KSh 60,000–150,000 / $900–2,300",
+  "KSh 150,000+ / $2,300+",
   "Not sure yet",
 ];
 
 export default function ContactForm({
   initialMessage = "",
   initialProjectType = "",
+  service = "",
+  source = "",
 }: {
   initialMessage?: string;
   initialProjectType?: string;
+  service?: string;
+  source?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorText, setErrorText] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: initialMessage,
     projectType: initialProjectType,
     budgetRange: "",
+    website: "", // honeypot: real visitors never see this field
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,12 +50,16 @@ export default function ContactForm({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, service, source }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(typeof data?.error === "string" ? data.error : "");
+      }
       setStatus("sent");
-      setForm({ name: "", email: "", message: "", projectType: "", budgetRange: "" });
-    } catch {
+      setForm({ name: "", email: "", message: "", projectType: "", budgetRange: "", website: "" });
+    } catch (err) {
+      setErrorText(err instanceof Error ? err.message : "");
       setStatus("error");
     }
   };
@@ -67,6 +78,19 @@ export default function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Website
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={form.website}
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+          />
+        </label>
+      </div>
       <div>
         <label className="mb-2 block text-[13px] text-text-secondary">Name</label>
         <input
@@ -128,7 +152,7 @@ export default function ContactForm({
 
       {status === "error" && (
         <p className="text-[13.5px] text-red-400">
-          Something went wrong — try again, or email me directly.
+          {errorText || "Something went wrong — try again, or email me directly."}
         </p>
       )}
 
