@@ -1,15 +1,18 @@
 import { client } from "@/sanity/lib/client";
 import { PROCESS_STEPS_DETAILED_QUERY } from "@/sanity/lib/queries";
-import CtaButton from "@/components/CtaButton";
+import ClosingCta from "@/components/ClosingCta";
+import { pageMeta } from "@/lib/seo";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 export const revalidate = 60;
 
-export const metadata = {
-  title: "Process | daniel.co.ke",
-  description: "How a project works with Daniel Ochieng, from discovery and design through development and launch.",
-};
+export const metadata = pageMeta({
+  title: "Process",
+  description:
+    "How a project works with Daniel Ochieng, from discovery and design through development and launch.",
+  path: "/process",
+});
 
 type Step = {
   num: string;
@@ -105,24 +108,7 @@ export default async function ProcessPage() {
         </FadeIn>
       ))}
 
-      <FadeIn once={false}>
-        <section id="contact" className="mx-auto max-w-6xl px-5 pb-14 pt-14 sm:px-8 sm:pb-16 sm:pt-24">
-          <div className="flex items-start gap-4 sm:gap-6">
-            <div className="relative mt-1 h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222] sm:mt-2 sm:h-[52px] sm:w-[52px]">
-              <span className="absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-bg bg-accent-blue sm:h-3 sm:w-3" />
-            </div>
-            <h2 className="font-display text-[24px] font-medium leading-tight tracking-tight sm:text-[30px] md:text-[56px]">
-              Let&apos;s talk about a project, collaboration, or an idea you
-              may have
-            </h2>
-          </div>
-          <div className="mt-8 flex justify-end sm:mt-10">
-            <CtaButton href="/contact?source=process">
-              Drop me a line
-            </CtaButton>
-          </div>
-        </section>
-      </FadeIn>
+      <ClosingCta source="process" />
     </div>
   );
 }

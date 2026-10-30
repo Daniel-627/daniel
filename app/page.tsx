@@ -1,5 +1,8 @@
-import Link from "next/link";
 import CtaButton from "@/components/CtaButton";
+import ArrowLink from "@/components/ArrowLink";
+import Magnetic from "@/components/Magnetic";
+import ClosingCta from "@/components/ClosingCta";
+import { pageMeta } from "@/lib/seo";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ProcessAccordion from "@/components/ProcessAccordion";
 import SocialIcon from "@/components/SocialIcon";
@@ -9,7 +12,6 @@ import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import { HeroReveal, HeroItem } from "@/components/motion/HeroReveal";
 import { client } from "@/sanity/lib/client";
-import Image from "next/image";
 import {
   FEATURED_PROJECTS_QUERY,
   SERVICES_QUERY,
@@ -20,6 +22,15 @@ import {
 } from "@/sanity/lib/queries";
 
 export const revalidate = 60;
+
+export const metadata = pageMeta({
+  title: "Daniel Ochieng — Designer & Developer",
+  description:
+    "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
+  path: "/",
+  image: "/og",
+  suffix: false,
+});
 
 export default async function Home() {
   const [featured, services, testimonials, logos, processSteps, socialLinks] =
@@ -64,7 +75,7 @@ export default async function Home() {
                 <StaggerGroup once={false} className="mt-4 grid w-fit grid-cols-4 gap-x-5 gap-y-4">
   {socialLinks.map((s: { label: string; platform: string; url: string }) => (
     <StaggerItem key={s.label}>
-      <a
+      <Magnetic strength={0.4}><a
         href={s.url}
         target="_blank"
         rel="noreferrer"
@@ -72,7 +83,7 @@ export default async function Home() {
         className="flex items-center justify-center text-text-secondary transition-colors hover:text-text-primary"
       >
         <SocialIcon platform={s.platform} size={20} />
-      </a>
+      </a></Magnetic>
     </StaggerItem>
   ))}
 </StaggerGroup>
@@ -89,12 +100,7 @@ export default async function Home() {
   <div className="text-sm text-text-secondary">
     I can help you with ...
   </div>
-  <Link
-    href="/services"
-    className="inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
-  >
-    Full services & pricing →
-  </Link>
+  <ArrowLink href="/services">Full services & pricing</ArrowLink>
 </div>
             <StaggerGroup once={false} className="grid gap-8 sm:grid-cols-3 sm:gap-8">
               {services.map((s: { num: string; title: string; body: string }) => (
@@ -122,12 +128,7 @@ export default async function Home() {
 
             <SelectedWork projects={featured} />
 
-            <Link
-              href="/projects"
-              className="mt-8 inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue sm:mt-12"
-            >
-              View all projects →
-            </Link>
+            <ArrowLink href="/projects" className="mt-8 text-[15px] sm:mt-12">View all projects</ArrowLink>
           </section>
         </FadeIn>
 
@@ -156,42 +157,13 @@ export default async function Home() {
               </div>
               <div>
                 <ProcessAccordion steps={processSteps} />
-                <Link
-                  href="/process"
-                  className="mt-8 inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
-                >
-                  View full process →
-                </Link>
+                <ArrowLink href="/process" className="mt-8 text-[15px]">View full process</ArrowLink>
               </div>
             </div>
           </section>
         </FadeIn>
 
-        <FadeIn once={false}>
-          <section id="contact" className="mx-auto max-w-6xl px-5 pb-14 pt-14 sm:px-8 sm:pb-16 sm:pt-24">
-            <div className="flex items-start gap-4 sm:gap-6">
-              <div className="relative mt-1 h-10 w-10 shrink-0 sm:mt-2 sm:h-[52px] sm:w-[52px]">
-  <div className="relative h-full w-full overflow-hidden rounded-full bg-gradient-to-br from-[#3a3b3e] to-[#222]">
-    <Image
-      src="/daniel.jpg"
-      alt="Daniel Ochieng"
-      fill
-      sizes="52px"
-      className="object-cover"
-    />
-  </div>
-  <span className="absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-bg bg-accent-blue sm:h-3 sm:w-3" />
-</div>
-              <h2 className="font-display text-[24px] font-medium leading-tight tracking-tight sm:text-[30px] md:text-[56px]">
-                Let&apos;s talk about a project, collaboration, or an idea you may
-                have
-              </h2>
-            </div>
-            <div className="mt-8 flex justify-end sm:mt-10">
-              <CtaButton href="/contact?source=homepage">Drop me a line</CtaButton>
-            </div>
-          </section>
-        </FadeIn>
+        <ClosingCta source="homepage" />
       </div>
     </div>
   );

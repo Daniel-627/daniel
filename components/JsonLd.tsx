@@ -15,8 +15,10 @@ export default async function JsonLd() {
         "@id": "https://daniel.co.ke/#person",
         name: "Daniel Ochieng",
         url: "https://daniel.co.ke",
-        image: "https://daniel.co.ke/logo.png",
+        image: "https://daniel.co.ke/daniel.jpg",
         jobTitle: "Designer & Developer",
+        description:
+          "Designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
         address: { "@type": "PostalAddress", addressCountry: "KE" },
         sameAs,
         knowsAbout: [
@@ -29,10 +31,18 @@ export default async function JsonLd() {
         ],
       },
       {
+        "@type": "WebSite",
+        "@id": "https://daniel.co.ke/#website",
+        url: "https://daniel.co.ke",
+        name: "daniel.co.ke",
+        publisher: { "@id": "https://daniel.co.ke/#person" },
+      },
+      {
         "@type": "ProfessionalService",
         "@id": "https://daniel.co.ke/#service",
         name: "Daniel Ochieng, Designer & Developer",
         url: "https://daniel.co.ke",
+        image: "https://daniel.co.ke/daniel.jpg",
         provider: { "@id": "https://daniel.co.ke/#person" },
         serviceType: [
           "Brand identity design",

@@ -47,6 +47,8 @@ export default function ProjectMasonry({ projects }: { projects: Project[] }) {
           <motion.button
             key={f}
             variants={filterBtnVariants}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setActive(f)}
             className={`rounded-full border px-[18px] py-2 text-[13.5px] transition-colors ${
               active === f

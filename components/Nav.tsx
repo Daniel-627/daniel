@@ -70,7 +70,7 @@ export default function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-text-primary"
+                className="nav-link transition-colors hover:text-text-primary"
               >
                 {link.label}
               </Link>

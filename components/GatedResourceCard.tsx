@@ -62,7 +62,7 @@ export default function GatedResourceCard({
         {!open && status !== "sent" && (
           <button
             onClick={() => setOpen(true)}
-            className="mt-3 w-fit rounded-full border border-border px-4 py-1.5 text-[13px] transition-colors hover:border-accent-blue hover:text-accent-blue"
+            className="pill mt-3 w-fit rounded-full border border-border px-4 py-1.5 text-[13px]"
           >
             Get the link
           </button>
@@ -88,7 +88,7 @@ export default function GatedResourceCard({
             <button
               type="submit"
               disabled={status === "sending"}
-              className="mt-1 w-fit rounded-full bg-text-primary px-4 py-1.5 text-[13px] text-bg disabled:opacity-60"
+              className="pill mt-1 w-fit rounded-full border border-transparent bg-text-primary px-4 py-1.5 text-[13px] text-bg disabled:opacity-60"
             >
               {status === "sending" ? "Sending…" : "Send me the link"}
             </button>

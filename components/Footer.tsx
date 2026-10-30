@@ -5,6 +5,7 @@ import { SOCIAL_LINKS_QUERY } from "@/sanity/lib/queries";
 import SocialIcon from "@/components/SocialIcon";
 import FooterReveal from "@/components/motion/FooterReveal";
 import BackToTop from "@/components/BackToTop";
+import Magnetic from "@/components/Magnetic";
 
 export default async function Footer() {
   const socials = await client.fetch(SOCIAL_LINKS_QUERY);
@@ -18,24 +19,25 @@ export default async function Footer() {
         </div>
 
         <div className="flex items-center gap-4 sm:gap-5">
-          <Link href="/terms" className="transition-colors hover:text-text-primary">
+          <Link href="/terms" className="nav-link transition-colors hover:text-text-primary">
             Terms
           </Link>
           <div className="flex gap-5">
             {socials.map((s: { label: string; platform: string; url: string }) => (
-              <a
-                key={s.label}
-                href={s.url}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={s.label}
-                className="transition-colors hover:text-text-primary"
-              >
-                <SocialIcon platform={s.platform} size={16} />
-              </a>
+              <Magnetic key={s.label} strength={0.45}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="transition-colors hover:text-text-primary"
+                >
+                  <SocialIcon platform={s.platform} size={16} />
+                </a>
+              </Magnetic>
             ))}
           </div>
-          <Link href="/privacy" className="transition-colors hover:text-text-primary">
+          <Link href="/privacy" className="nav-link transition-colors hover:text-text-primary">
             Privacy
           </Link>
         </div>

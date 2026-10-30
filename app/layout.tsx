@@ -25,13 +25,18 @@ export const metadata: Metadata = {
   title: "Daniel Ochieng — Designer & Developer",
   description:
     "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
-    alternates: { canonical: "/" },
-openGraph: {
-  type: "website",
-  url: "https://daniel.co.ke",
-  siteName: "Daniel Ochieng",
-},
-twitter: { card: "summary_large_image" },
+  openGraph: {
+    type: "website",
+    siteName: "Daniel Ochieng",
+    title: "Daniel Ochieng — Designer & Developer",
+    description:
+      "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Daniel Ochieng — Designer & Developer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

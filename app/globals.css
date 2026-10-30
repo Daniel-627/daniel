@@ -90,3 +90,50 @@ body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* ---- Interaction polish ---- */
+
+/* Small filled or outlined pill buttons: lift on hover, press on click. */
+.pill {
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.pill:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Nav and footer text links: gradient underline draws in from the left. */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .pill:hover,
+  .pill:active {
+    transform: none;
+    transition: none;
+  }
+  .nav-link::after {
+    transition: none;
+  }
+}

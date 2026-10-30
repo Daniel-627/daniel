@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import Magnetic from "@/components/Magnetic";
 
 type Testimonial = {
   quote: string;
@@ -41,22 +42,26 @@ export default function TestimonialCarousel({
       <div className="mb-10 flex items-end justify-between">
         <div className="text-sm text-text-secondary">What clients say</div>
         <div className="flex gap-2.5">
-          <button
-            onClick={() => scrollBy(-1)}
-            disabled={atStart}
-            aria-label="Previous testimonial"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30"
-          >
-            ←
-          </button>
-          <button
-            onClick={() => scrollBy(1)}
-            disabled={atEnd}
-            aria-label="Next testimonial"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30"
-          >
-            →
-          </button>
+          <Magnetic strength={0.35}>
+            <button
+              onClick={() => scrollBy(-1)}
+              disabled={atStart}
+              aria-label="Previous testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30"
+            >
+              ←
+            </button>
+          </Magnetic>
+          <Magnetic strength={0.35}>
+            <button
+              onClick={() => scrollBy(1)}
+              disabled={atEnd}
+              aria-label="Next testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:border-accent-blue hover:text-accent-blue disabled:opacity-30"
+            >
+              →
+            </button>
+          </Magnetic>
         </div>
       </div>
 

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client";
@@ -7,6 +6,8 @@ import { PROJECT_BY_SLUG_QUERY, ALL_PROJECTS_QUERY } from "@/sanity/lib/queries"
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import NextProjectLink from "@/components/NextProjectLink";
+import ArrowLink from "@/components/ArrowLink";
+import { pageMeta, firstParagraph, SITE_URL } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -23,16 +24,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
 
-  const first = Array.isArray(project?.overview)
-    ? project.overview[0]?.children
-        ?.map((c: { text: string }) => c.text)
-        .join("")
+  if (!project) {
+    return { title: "Project not found | daniel.co.ke", robots: { index: false } };
+  }
+
+  const image = project.heroImage
+    ? urlFor(project.heroImage).width(1200).height(630).fit("crop").url()
     : undefined;
 
-  return {
-    title: project ? `${project.title} — daniel.co.ke` : "Project",
-    description: first?.slice(0, 160),
-  };
+  return pageMeta({
+    title: project.title,
+    description:
+      firstParagraph(project.overview) ??
+      `${project.title}, a project by Daniel Ochieng.`,
+    path: `/projects/${slug}`,
+    image,
+  });
 }
 
 const galleryClass = (layout?: string) => {
@@ -52,15 +59,49 @@ export default async function ProjectDetailPage({
 
   const isDesign = project.category === "design";
 
+  const url = `${SITE_URL}/projects/${slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_URL}/projects` },
+          { "@type": "ListItem", position: 3, name: project.title, item: url },
+        ],
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#work`,
+        name: project.title,
+        url,
+        description: firstParagraph(project.overview, 300),
+        image: project.heroImage
+          ? urlFor(project.heroImage).width(1200).height(630).fit("crop").url()
+          : undefined,
+        creator: { "@id": `${SITE_URL}/#person` },
+        ...(/^\d{2}$/.test(project.year ?? "") ? { dateCreated: `20${project.year}` } : {}),
+      },
+    ],
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <Link
+        <ArrowLink
           href="/projects"
-          className="inline-flex items-center gap-2 pt-6 text-sm text-text-secondary transition-colors hover:text-text-primary sm:pt-8"
+          direction="left"
+          className="mt-6 text-sm text-text-secondary transition-colors hover:text-text-primary sm:mt-8"
         >
-          ← Back to all projects
-        </Link>
+          Back to all projects
+        </ArrowLink>
       </div>
 
       <FadeIn once={false}>
@@ -101,8 +142,10 @@ export default async function ProjectDetailPage({
             {project.heroImage ? (
               <Image
                 src={urlFor(project.heroImage).width(1600).url()}
-                alt={`${project.title} screenshot`}
+                alt={`${project.title} — project overview`}
                 fill
+                priority
+                sizes="(min-width: 1152px) 1152px, 100vw"
                 className="object-cover"
               />
             ) : null}
@@ -154,7 +197,7 @@ export default async function ProjectDetailPage({
               }`}
             >
               {project.gallery.map(
-                (g: { _key: string; image?: unknown; layout?: string }) => (
+                (g: { _key: string; image?: unknown; layout?: string }, i: number) => (
                   <StaggerItem
                     key={g._key}
                     className={`relative overflow-hidden rounded-[10px] border border-border bg-gradient-to-br from-[#232427] to-[#17181a] ${
@@ -164,8 +207,9 @@ export default async function ProjectDetailPage({
                     {g.image ? (
                       <Image
                         src={urlFor(g.image).width(1000).url()}
-                        alt={`${project.title} screenshot`}
+                        alt={`${project.title} — project image ${i + 1} of ${project.gallery.length}`}
                         fill
+                        sizes={isDesign ? "(min-width: 640px) 33vw, 50vw" : "(min-width: 640px) 50vw, 100vw"}
                         className="object-cover"
                       />
                     ) : null}

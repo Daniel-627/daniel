@@ -5,13 +5,16 @@ import ContactForm from "@/components/ContactForm";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import TrustStrip from "@/components/TrustStrip";
+import Magnetic from "@/components/Magnetic";
+import { pageMeta } from "@/lib/seo";
 
 export const revalidate = 60;
 
-export const metadata = {
-  title: "Contact | daniel.co.ke",
+export const metadata = pageMeta({
+  title: "Contact",
   description: "Contact Daniel Ochieng about a branding, website or web app project.",
-};
+  path: "/contact",
+});
 
 type ContactInfo = {
   headline: string;
@@ -102,7 +105,7 @@ export default async function ContactPage({
   <StaggerGroup once={false} className="flex gap-4">
     {socials.map((s) => (
       <StaggerItem key={s.label}>
-        <a
+        <Magnetic strength={0.4}><a
           href={s.url}
           target="_blank"
           rel="noreferrer"
@@ -110,7 +113,7 @@ export default async function ContactPage({
           className="text-text-secondary transition-colors hover:text-text-primary"
         >
           <SocialIcon platform={s.platform} size={20} />
-        </a>
+        </a></Magnetic>
       </StaggerItem>
     ))}
   </StaggerGroup>

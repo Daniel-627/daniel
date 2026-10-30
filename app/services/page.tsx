@@ -1,4 +1,5 @@
-import Link from "next/link";
+import ArrowLink from "@/components/ArrowLink";
+import { pageMeta, SITE_URL } from "@/lib/seo";
 import { client } from "@/sanity/lib/client";
 import { SERVICES_DETAILED_QUERY } from "@/sanity/lib/queries";
 import CtaButton from "@/components/CtaButton";
@@ -8,10 +9,12 @@ import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 export const revalidate = 60;
 
-export const metadata = {
-  title: "Services & Pricing | daniel.co.ke",
-  description: "Services and starting prices for branding, web design, web development, business systems and M-Pesa payment integration.",
-};
+export const metadata = pageMeta({
+  title: "Services & Pricing",
+  description:
+    "Services and starting prices for branding, web design, web development, business systems and M-Pesa payment integration.",
+  path: "/services",
+});
 
 type Service = {
   num?: string;
@@ -31,6 +34,25 @@ const categoryLabels: Record<string, string> = {
   "business-systems": "Business Systems",
   infrastructure: "Infrastructure & Other",
 };
+
+function priceNumber(text?: string) {
+  const m = text?.match(/[\d][\d,]*/);
+  return m ? Number(m[0].replace(/,/g, "")) : undefined;
+}
+
+function offer(text: string | undefined, currency: "KES" | "USD") {
+  const min = priceNumber(text);
+  if (!min) return null;
+  return {
+    "@type": "Offer",
+    priceCurrency: currency,
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      minPrice: min,
+      priceCurrency: currency,
+    },
+  };
+}
 
 function ServiceRow({ s, index }: { s: Service; index: number }) {
   return (
@@ -88,12 +110,12 @@ function ServiceRow({ s, index }: { s: Service; index: number }) {
               </div>
             )}
 
-            <Link
+            <ArrowLink
               href={`/contact?service=${encodeURIComponent(s.title)}&source=services`}
-              className="mt-6 inline-flex items-center gap-2 border-b border-text-secondary pb-0.5 text-[13.5px] text-text-secondary transition-colors hover:border-accent-blue hover:text-accent-blue"
+              className="mt-6 text-[13.5px] text-text-secondary transition-colors hover:text-accent-blue"
             >
-              Ask about this →
-            </Link>
+              Ask about this
+            </ArrowLink>
           </div>
         </div>
       </section>
@@ -113,8 +135,32 @@ export default async function ServicesPage() {
     return acc;
   }, {});
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Services and starting prices",
+    itemListElement: services.map((svc, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Service",
+        name: svc.title,
+        description: svc.tagline,
+        url: `${SITE_URL}/services`,
+        provider: { "@id": `${SITE_URL}/#person` },
+        offers: [offer(svc.startingPriceKsh, "KES"), offer(svc.startingPriceUsd, "USD")].filter(Boolean),
+      },
+    })),
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <FadeIn once={false}>
         <header className="mx-auto max-w-6xl px-5 pb-12 pt-16 sm:px-8 sm:pb-16 sm:pt-24 md:pt-[120px]">
           <div className="mb-4 text-sm text-text-secondary sm:mb-5">

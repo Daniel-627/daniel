@@ -1,9 +1,12 @@
 import CtaButton from "@/components/CtaButton";
 import FadeIn from "@/components/motion/FadeIn";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = {
-  title: "Privacy Policy — daniel.co.ke",
-};
+export const metadata = pageMeta({
+  title: "Privacy Policy",
+  description: "What daniel.co.ke collects, how it is used, and your choices.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

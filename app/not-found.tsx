@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ArrowLink from "@/components/ArrowLink";
 import CtaButton from "@/components/CtaButton";
 import FadeIn from "@/components/motion/FadeIn";
 
@@ -21,12 +21,7 @@ export default function NotFound() {
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <CtaButton href="/">Back to home</CtaButton>
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
-          >
-            See my work instead →
-          </Link>
+          <ArrowLink href="/projects">See my work instead</ArrowLink>
         </div>
       </div>
     </FadeIn>

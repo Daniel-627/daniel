@@ -1,8 +1,11 @@
 import FadeIn from "@/components/motion/FadeIn";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = {
-  title: "Terms of Use — daniel.co.ke",
-};
+export const metadata = pageMeta({
+  title: "Terms of Use",
+  description: "The terms that apply when you use daniel.co.ke.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

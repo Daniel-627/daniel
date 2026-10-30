@@ -3,13 +3,17 @@ import { ALL_PROJECTS_QUERY, RESOURCES_QUERY } from "@/sanity/lib/queries";
 import ProjectMasonry from "@/components/ProjectMasonry";
 import ResourcesSection from "@/components/ResourcesSection";
 import FadeIn from "@/components/motion/FadeIn";
+import ArrowLink from "@/components/ArrowLink";
+import { pageMeta } from "@/lib/seo";
 
 export const revalidate = 60;
 
-export const metadata = {
-  title: "Projects | daniel.co.ke",
-  description: "Selected projects by Daniel Ochieng: brand identity, websites, web apps and custom systems.",
-};
+export const metadata = pageMeta({
+  title: "Projects",
+  description:
+    "Selected projects by Daniel Ochieng: brand identity, websites, web apps and custom systems.",
+  path: "/projects",
+});
 
 export default async function ProjectsPage() {
   const [projects, resources] = await Promise.all([
@@ -29,12 +33,9 @@ export default async function ProjectsPage() {
               Everything I&apos;ve shipped, in one place.
             </h1>
             {resources?.length > 0 && (
-              <a
-                href="#resources"
-                className="inline-flex items-center gap-2 border-b border-text-primary pb-0.5 text-[15px] transition-colors hover:border-accent-blue hover:text-accent-blue"
-              >
-                Downloads, Links &amp; Resources ↓
-              </a>
+              <ArrowLink href="#resources" direction="down">
+                Downloads, Links &amp; Resources
+              </ArrowLink>
             )}
           </div>
         </header>
