@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { getDb } from "@/lib/db";
-import { deleteLead, isLeadStatus, setLeadNotes, setLeadStatus } from "@/lib/db/leads";
+import { deleteLead, isLeadStatus, setLeadNotes, setLeadStatus, setReplied } from "@/lib/db/leads";
 import { requireAdmin, startSession, endSession } from "@/lib/admin/auth";
 import { passwordMatches } from "@/lib/admin/session";
 import { clientIp, hashIp } from "@/lib/contact";
@@ -61,6 +61,14 @@ export async function updateStatus(formData: FormData) {
   const status = formData.get("status");
   if (!id || !isLeadStatus(status)) return;
   await setLeadStatus(getDb(), id, status);
+  revalidatePath("/admin");
+}
+
+export async function markReplied(formData: FormData) {
+  await requireAdmin();
+  const id = leadId(formData);
+  if (!id) return;
+  await setReplied(getDb(), id, formData.get("replied") === "1");
   revalidatePath("/admin");
 }
 

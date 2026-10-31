@@ -17,6 +17,7 @@ export const leads = pgTable(
     status: text("status").notNull().default("new"),
     notes: text("notes"),
     ipHash: text("ip_hash"),
+    repliedAt: timestamp("replied_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [

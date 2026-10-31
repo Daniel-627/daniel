@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS leads (
   status      text NOT NULL DEFAULT 'new',
   notes       text,
   ip_hash     text,
+  replied_at  timestamptz,
   created_at  timestamptz NOT NULL DEFAULT now()
 );
 
