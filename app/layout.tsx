@@ -28,14 +28,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Daniel Ochieng",
+    locale: "en_KE",
     title: "Daniel Ochieng — Designer & Developer",
     description:
       "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
-    images: [{ url: "/og", width: 1200, height: 630, alt: "Daniel Ochieng — Designer & Developer" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Daniel Ochieng — Designer & Developer" }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og"],
+    title: "Daniel Ochieng — Designer & Developer",
+    description:
+      "Daniel is a designer and developer based in Kenya. Branding, graphic design, websites, web apps, and mobile apps.",
+    images: ["/og.png"],
   },
 };
 
@@ -46,15 +50,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg text-text-primary">
-  <Nav />
-  <main className="flex-1">
-    <PageTransition>{children}</PageTransition>
-  </main>
-  <Footer />
-  <WhatsAppButton />
-  <Analytics />
-  <JsonLd />
-</body>
+        <Nav />
+        <main className="flex-1">
+          <PageTransition>{children}</PageTransition>
+        </main>
+        <Footer />
+        <WhatsAppButton />
+        <Analytics />
+        <JsonLd />
+      </body>
     </html>
   );
 }
