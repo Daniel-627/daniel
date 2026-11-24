@@ -11,6 +11,7 @@ import ClientLogos from "@/components/ClientLogos";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import { HeroReveal, HeroItem } from "@/components/motion/HeroReveal";
+import HomeScroll from "@/components/motion/HomeScroll";
 import { client } from "@/sanity/lib/client";
 import {
   FEATURED_PROJECTS_QUERY,
@@ -45,7 +46,8 @@ export default async function Home() {
 
   return (
     <div id="top">
-      <div className="sticky top-0 z-0">
+      <HomeScroll />
+      <div data-hero className="sticky top-0 z-0 will-change-transform">
         <HeroReveal>
 <header className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 md:pt-[80px] md:pb-[90px]">            <HeroItem className="flex flex-wrap items-start justify-between gap-6 sm:gap-10">
               <h1 className="font-display text-[38px] font-semibold leading-[0.98] tracking-tight sm:text-[52px] md:text-[100px]">
@@ -93,7 +95,7 @@ export default async function Home() {
         </HeroReveal>
       </div>
 
-      <div className="relative z-10 rounded-t-[28px] bg-bg">
+      <div data-sheet className="relative z-10 rounded-t-[28px] bg-bg">
         <FadeIn once={false}>
           <section className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-14">
@@ -103,9 +105,9 @@ export default async function Home() {
   <ArrowLink href="/services">Full services & pricing</ArrowLink>
 </div>
             <StaggerGroup once={false} className="grid gap-8 sm:grid-cols-3 sm:gap-8">
-              {services.map((s: { num: string; title: string; body: string }) => (
+              {services.map((s: { num: string; title: string; body: string }, i: number) => (
                 <StaggerItem key={s.num} className="border-t border-border pt-5">
-                  <span className="mb-8 block font-display text-[40px] text-text-secondary sm:mb-14 sm:text-[56px]">
+                  <span data-parallax={i % 2 ? "0.18" : "0.08"} className="mb-8 block font-display text-[40px] text-text-secondary sm:mb-14 sm:text-[56px]">
                     {s.num}
                   </span>
                   <h3 className="mb-2.5 font-display text-xl font-medium">
@@ -144,7 +146,7 @@ export default async function Home() {
           <section id="process" className="mx-auto max-w-6xl border-t border-border px-5 py-14 sm:px-8 sm:py-24">
             <div className="grid gap-8 sm:gap-14 md:grid-cols-2">
               <div>
-                <h2 className="font-display text-[26px] font-medium leading-tight tracking-tight sm:text-[30px] md:text-[42px]">
+                <h2 data-split className="font-display text-[26px] font-medium leading-tight tracking-tight sm:text-[30px] md:text-[42px]">
                   My way of
                   <br />
                   getting things done

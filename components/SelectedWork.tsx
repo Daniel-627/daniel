@@ -39,14 +39,14 @@ export default function SelectedWork({ projects }: { projects: Project[] }) {
               className="flex items-baseline justify-between border-t border-border py-8 transition-opacity last:border-b hover:opacity-60"
             >
               <div>
-                <h3 className="font-display text-[32px] font-medium tracking-tight md:text-[56px]">
+                <h3 data-work-title className="font-display text-[32px] font-medium tracking-tight md:text-[56px]">
                   {p.title}
                 </h3>
                 <p className="mt-1.5 text-[14.5px] text-text-secondary">
                   {p.filterTags?.join(", ")}
                 </p>
               </div>
-              <div className="font-display text-2xl text-text-secondary">
+              <div data-work-year className="font-display text-2xl text-text-secondary">
                 /{p.year}
               </div>
             </Link>
